@@ -13,4 +13,8 @@ public abstract class Units{
 	public void sethitboxL(int newL){
 		hitboxL = newL;
 	}
+	public void update{
+	}
+	public checkBoundaryCollision(){
+	}
 }
