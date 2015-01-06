@@ -1,0 +1,51 @@
+abstract Units:
+  int HP
+  int hitboxH
+  int hitboxL
+  
+  
+  subclass Player:
+    int Lives
+    int Bombs
+    int Power
+    int LCount
+    int BCount
+    boolean FullPower (?)
+    int Score
+    default HP is 1
+    double playerVel
+  
+  subclass Enemy:
+    int spawnX
+    int spawnY
+    
+    subclass Boss:
+    int bossLives
+    
+    
+  subclass Item:
+    int collectionRadius (this should be a circle around the item)
+    int gravity (item falls gradually down screen)
+    
+    subclass PowerItem:
+      int PIncreaseVal
+    subclass ScoreItem:
+      int SIncreaseVal
+    sublclass LifePiece:
+      N/A?
+    subclass BombPiece:
+      N/A?
+    subclass multItem:
+      int scoreMultPlusVal
+  
+  subclass Bullet:
+    long angle
+    double velocity
+    boolean EdgeOfScreen?
+    
+    subclass playerShot:
+    boolean contactEnemy?
+    
+    subclass enemyShot:
+    boolean contactPlayer?
+  
