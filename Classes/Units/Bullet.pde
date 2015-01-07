@@ -1,8 +1,5 @@
-class Bullet extends Units{
+class Bullet extends Unit{
   boolean EdgeOfScreen;
-  
-  Bullet(){
-  }
   
   Bullet(){
   }

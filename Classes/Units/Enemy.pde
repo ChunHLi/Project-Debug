@@ -1,9 +1,9 @@
-class Enemy extends Units{
+class Enemy extends Unit{
   
   Enemy(){
   }
   
-  Enemy(){
+  void checkBoundaryCollision(Bullet other){
   }
   
   void shootBullet(){

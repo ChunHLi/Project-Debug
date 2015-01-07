@@ -1,11 +1,22 @@
-class Player extends Units{
+class Player extends Unit{
   int Lives, Bombs, Power, LCount, BCount, Score;
-  boolean FullPower;
+  boolean FullPower, invuln;
   
   Player(){
+    setLives(3);
+    setBombs(3);
+    setPower(0);
+    setLCount(0);
+    setBCount(0);
+    setScore(0);
   }
   
-  Player(){
+  Player(int nLives, int nBombs, int nPower, int nLCount, int nBCount, int nScore){
+    setLives(nLives);
+    setBombs(nBombs);
+    setLCount(nLCount);
+    setBCount(nBCount);
+    setScore(nScore);
   }
   
   void setLives(int newLives){
@@ -35,7 +46,10 @@ class Player extends Units{
   void checkBoundaryCollision(Enemy others){
   }
   
-  void checkBoundaryCollision(Item others){
+  void checkBoundaryCollision(Items others){
+  }
+  
+  void checkBoundaryCollision(Bullet others){
   }
   
   void shootBullet(){

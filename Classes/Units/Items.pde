@@ -1,7 +1,4 @@
-class Items extends Units{
-  
-  Items(){
-  }
+class Items extends Unit{
   
   Items(){
   }
