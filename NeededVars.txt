@@ -39,8 +39,6 @@ abstract Units:
       int scoreMultPlusVal
   
   subclass Bullet:
-    long angle
-    double velocity
     boolean EdgeOfScreen?
     
     subclass playerShot:
