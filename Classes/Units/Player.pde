@@ -1,6 +1,7 @@
 class Player extends Unit{
   int Lives, Bombs, Power, LCount, BCount, Score;
   boolean FullPower, invuln;
+  boolean[] keys;
   
   Player(){
     setLives(3);
@@ -9,6 +10,11 @@ class Player extends Unit{
     setLCount(0);
     setBCount(0);
     setScore(0);
+    keys = new boolean[4];
+    keys[0] = false;
+    keys[1] = false;
+    keys[2] = false;
+    keys[3] = false;
   }
   
   Player(int nLives, int nBombs, int nPower, int nLCount, int nBCount, int nScore){
@@ -59,14 +65,74 @@ class Player extends Unit{
   }
   
   void moveUp(){
+    if (position.y - velocity.y > 0){
+      position.y -= velocity.y;
+    }
   }
   
   void moveDown(){
+    if (position.y + velocity.y < height){
+      position.y += velocity.y;
+    }
   }
   
   void moveLeft(){
+    if (position.x - velocity.x > 0){
+      position.x -= velocity.x;
+    }
   }
   
   void moveRight(){
+    if (position.x + velocity.x < width){
+      position.x += velocity.x;
+    }
+  }
+  void move(){
+    if (keys[0]){
+      moveUp();
+    }
+    if (keys[1]){
+      moveDown();
+    }
+    if (keys[2]){
+      moveLeft();
+    }
+    if (keys[3]){
+      moveRight();
+    }
+  }
+  void keyPressed(){
+    if (key == CODED){
+      if (keyCode == UP){
+        keys[0] = true;
+      }
+      else if (keyCode == DOWN){
+        keys[1] = true;
+      }  
+      else if (keyCode == LEFT){
+        keys[2] = true;
+      }
+      else if (keyCode == RIGHT){
+        keys[3] = true;
+      }
+      println(keys);
+    }  
+  }
+  void keyReleased(){
+    if (key == CODED){
+      if (keyCode == UP){
+        keys[0] = false;
+      }
+      else if (keyCode == DOWN){
+        keys[1] = false;
+      }
+      else if (keyCode == LEFT){
+        keys[2] = false;
+      }
+      else if (keyCode == RIGHT){
+        keys[3] = false;
+      }
+      keyCode = ' ';
+    }
   }
 }
