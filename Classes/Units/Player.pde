@@ -100,6 +100,7 @@ class Player extends Unit{
     if (keys[3]){
       moveRight();
     }
+    background(103);
   }
   void keyPressed(){
     if (key == CODED){

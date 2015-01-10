@@ -6,8 +6,9 @@ class Unit{
   int hitboxL = 40;
   
   void display(){
-    stroke(153);
-    rect(position.x, position.y, hitboxL, hitboxH);
+    stroke(25);
+    fill(240, 0, 40);
+    rect(position.x - hitboxL/2, position.y - hitboxH/2, hitboxL, hitboxH, 40);
   }
   void setHP(int newHP){
     HP = newHP;
