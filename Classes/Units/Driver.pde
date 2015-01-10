@@ -2,7 +2,11 @@ Unit Test;
 Player Test2;
 ArrayList<Player> playerList = new ArrayList<Player>(0);
 ArrayList<playerShot> pShotList = new ArrayList<playerShot>(0);
+ArrayList<Enemy> enemyList = new ArrayList<Enemy>(0);
+ArrayList<Items> itemList = new ArrayList<Items>(0);
 int counter = 0;
+int Ecounter = 0;
+int Icounter = 0;
 
 
 void setup(){
@@ -62,6 +66,18 @@ void displayPShot(){
   }
 }
   
+void displayEnemy(){
+  int Ecounter = 0;
+  while (Ecounter < enemyList.size()){
+    enemyList.get(Ecounter).display();
+    Ecounter += 1;
+  }
+}
 
-    
-  
+void displayItem(){
+  int Icounter = 0;
+  while (Icounter < itemList.size()){
+    itemList.get(Icounter).display();
+    Icounter += 1;
+  }
+}
