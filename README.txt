@@ -15,3 +15,4 @@ static/pseudo-static.
 1/8/15-Shawn Li- Made the Player class able to move using keypress, however diagonal movement is still not working, seeking help in google groups.
 1/8/15-Oscar Ngan- Made playerShot class, a subclass for Bullets.
 1/9/15-Created keypressed for shooting bullets, however similar to movement, you can't simultaneously press keys. REMINDER TO ASK MR.K FOR HELP.
+1/10/15 (work rolled over from 1/9/15 past midnight)-Oscar Ngan- Completed remaining constructors; created ArrayLists for other relevant classes; began development on display of other classes.
