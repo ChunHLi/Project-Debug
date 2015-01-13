@@ -2,12 +2,12 @@ class Unit{
   PVector position = new PVector(0,0);
   PVector velocity = new PVector(10,10);
   int HP = 1;
-  int hitboxH = 40;
-  int hitboxL = 40;
+  int hitboxH = 10;
+  int hitboxL = 10;
   
   void display(){
     stroke(25);
-    fill(240, 0, 40);
+    fill(250);
     rect(position.x - hitboxL/2, position.y - hitboxH/2, hitboxL, hitboxH, 40);
   }
   void setHP(int newHP){
