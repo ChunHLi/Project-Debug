@@ -16,3 +16,8 @@ static/pseudo-static.
 1/8/15-Oscar Ngan- Made playerShot class, a subclass for Bullets.
 1/9/15-Created keypressed for shooting bullets, however similar to movement, you can't simultaneously press keys. REMINDER TO ASK MR.K FOR HELP.
 1/10/15 (work rolled over from 1/9/15 past midnight)-Oscar Ngan- Completed remaining constructors; created ArrayLists for other relevant classes; began development on display of other classes.
+1/11/15-Shawn Li- Sprite folder has been created. Bullet sprites have been uploaded; others are still in progress. Next priority is to create a background.
+1/12/15-Shawn Li/Oscar Ngan - Many accomplishments have been made including
+    -Created a looping background.(Shawn Li)
+    -Learned how to apply image sprites to classes from a sprite sheet.(Shawn      Li)
+    -Sprites have been made. (Oscar Ngan)
