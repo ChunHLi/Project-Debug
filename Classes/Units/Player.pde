@@ -4,7 +4,7 @@ class Player extends Unit{
   int Lives, Bombs, LCount, BCount, Score;
   boolean invuln;
   PImage playerSprite;
-  int invulnTime;
+  int invulnTime, power;
   
   Player(){
     setLives(3);
@@ -52,6 +52,10 @@ class Player extends Unit{
   
   void setScore(int newScore){
     Score = newScore;
+  }
+  
+  void setPower(int newP){
+    power = newP;
   }
   
   void checkBoundaryCollision(Enemy other){
