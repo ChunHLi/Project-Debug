@@ -1,6 +1,7 @@
 class playerShot extends Bullet{
  boolean contactEnemy;
  PImage pShotSprite;
+ boolean FullPower;
   
  playerShot(float x, float y,float velocityY){
     position.x = x;
@@ -9,6 +10,12 @@ class playerShot extends Bullet{
     velocity.x=0;
     pShotSprite = loadImage("../../Sprites/Bullets/Enemy/BulletSprites.png");
     
+ }
+ 
+ void checkBoundaryCollision(Enemy other){
+   if (super.checkBoundaryCollision(other)){
+     other.setHP(other.HP - power);
+   }
  }
  
  void moveBullet(){

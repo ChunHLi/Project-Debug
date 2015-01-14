@@ -1,54 +1,45 @@
-Unit Test;
-Player Test2;
 ArrayList<Player> playerList = new ArrayList<Player>(0);
 ArrayList<playerShot> pShotList = new ArrayList<playerShot>(0);
 ArrayList<Enemy> enemyList = new ArrayList<Enemy>(0);
 ArrayList<Items> itemList = new ArrayList<Items>(0);
-int counter = 0;
+int pShotTimer = 0;
 int Ecounter = 0;
 int Icounter = 0;
 float bgrepeat;
 PImage a;
 float x;
 float y = 1;
+boolean[] keys;
+int counter = 0;
 
 
 void setup(){
   frameRate(60);
   size(480,720);
-  smooth();
-  noStroke();
-  background(103);
-  Test = new Unit();
-  Test2 = new Player();
-  playerList.add(Test2);
+  playerList.add(new Player());
+  enemyList.add(new Enemy());
   a = loadImage("../../Background/Background4.jpg");
 }
 void draw(){
   loopBackground();
-  //Test.move();
-  //Test.display();
-  Test2.keyPressed();
-  Test2.move();
-  Test2.display();
-  Test2.keyReleased();
+  playerList.get(0).move();
+  playerList.get(0).display();
+  playerList.get(0).checkBoundaryCollision(enemyList.get(0));
+  if (pShotList.size() > 0){
+    pShotList.get(0).checkBoundaryCollision(enemyList.get(0));
+  }
+  playerShoot();
   movePshots();
   displayPShot();
-  if (counter < 5){
-    counter += 1;
-  }
+  println("Player's HP: " + playerList.get(0).HP);
+  println("Enemy's HP: " + enemyList.get(0).HP);
+  displayEnemy();
 }
 
-//void playerShoot(){
-//   }
-//}
-
 void keyPressed(){
-  if (counter  == 5){
+  if (pShotTimer == 10){
     if (key == 'z'){
-      playerShot newPShot = new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,playerList.get(0).velocity.y);
-      pShotList.add(newPShot);
-      counter = 0;
+      keys[4] = true;
     }
     //if (key == 'x'){
     //  playerShot newPShot = new playerShot(playerList.get(0).position.x - playerList.get(0).velocity.x, playerList.get(0).position.y - playerList.get(0).velocity.y*3,playerList.get(0).velocity.y);
@@ -56,7 +47,55 @@ void keyPressed(){
     //  counter = 0;
     //}
   }
+  if (key == CODED){
+    if (keyCode == UP){
+      keys[0] = true;
+    }
+    if (keyCode == DOWN){
+      keys[1] = true;
+    }  
+    if (keyCode == LEFT){
+      keys[2] = true;
+    }
+    if (keyCode == RIGHT){
+      keys[3] = true;
+    }
+  } 
 }
+
+void keyReleased(){
+  if (key == CODED){
+      if (keyCode == UP){
+        keys[0] = false;
+      }
+      if (keyCode == DOWN){
+        keys[1] = false;
+      }
+      if (keyCode == LEFT){
+        keys[2] = false;
+      }
+      if (keyCode == RIGHT){
+        keys[3] = false;
+      }
+    }
+  if (key == 'z'){
+    keys[4] = false;
+  }
+  if (key == 'x'){
+  }
+}
+
+void playerShoot(){
+  if (keys[4] == true && pShotTimer == 10){
+    playerShot newPShot = new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10);
+    pShotList.add(newPShot);
+    pShotTimer = 0;
+  }
+  if (pShotTimer < 10){
+    pShotTimer += 1;
+  }
+}
+
 void movePshots(){
   int counter = 0;
   while (counter < pShotList.size()){
@@ -74,7 +113,7 @@ void displayPShot(){
 }
   
 void displayEnemy(){
-  int Ecounter = 0;
+  Ecounter = 0;
   while (Ecounter < enemyList.size()){
     enemyList.get(Ecounter).display();
     Ecounter += 1;
@@ -82,7 +121,7 @@ void displayEnemy(){
 }
 
 void displayItem(){
-  int Icounter = 0;
+  Icounter = 0;
   while (Icounter < itemList.size()){
     itemList.get(Icounter).display();
     Icounter += 1;

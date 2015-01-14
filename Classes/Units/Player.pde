@@ -1,26 +1,29 @@
 //All players are 40px by 60px
 
 class Player extends Unit{
-  int Lives, Bombs, Power, LCount, BCount, Score;
-  boolean FullPower, invuln;
-  boolean[] keys;
+  int Lives, Bombs, LCount, BCount, Score;
+  boolean invuln;
   PImage playerSprite;
+  int invulnTime;
   
   Player(){
     setLives(3);
     setBombs(3);
-    setPower(0);
     setLCount(0);
     setBCount(0);
     setScore(0);
     position.x = width/2;
     position.y = height/2;
-    keys = new boolean[4];
+    velocity.x = 4;
+    velocity.y = 4;
+    keys = new boolean[5];
     keys[0] = false;
     keys[1] = false;
     keys[2] = false;
     keys[3] = false;
+    keys[4] = false;
     playerSprite = loadImage("../../Sprites/Player/Tohka/Base_Tohka.png");
+    invuln = false;
   }
   
   Player(int nLives, int nBombs, int nPower, int nLCount, int nBCount, int nScore){
@@ -39,10 +42,6 @@ class Player extends Unit{
     Bombs = newBombs;
   }
   
-  void setPower(int newPower){
-    Power = newPower;
-  }
-  
   void setLCount(int newLCount){
     LCount = newLCount;
   }
@@ -55,13 +54,20 @@ class Player extends Unit{
     Score = newScore;
   }
   
-  void checkBoundaryCollision(Enemy others){
+  void checkBoundaryCollision(Enemy other){
+    if (invulnTime > 0){
+      invulnTime -= 1;
+    }
+    else if (super.checkBoundaryCollision(other)){
+      setHP(HP - 1);
+      invulnTime = 120;
+    }
   }
   
-  void checkBoundaryCollision(Items others){
+  void checkBoundaryCollision(Items other){
   }
   
-  void checkBoundaryCollision(Bullet others){
+  void checkBoundaryCollision(Bullet other){
   }
   
   void shootBullet(){
@@ -108,23 +114,6 @@ class Player extends Unit{
     }
     //background(103);
   }
-  void keyPressed(){
-    if (key == CODED){
-      if (keyCode == UP){
-        keys[0] = true;
-      }
-      else if (keyCode == DOWN){
-        keys[1] = true;
-      }  
-      else if (keyCode == LEFT){
-        keys[2] = true;
-      }
-      else if (keyCode == RIGHT){
-        keys[3] = true;
-      }
-      println(keys);
-    }  
-  }
   void keyReleased(){
     if (key == CODED){
       if (keyCode == UP){
@@ -143,6 +132,6 @@ class Player extends Unit{
     }
   }
   void display(){
-    image(playerSprite,position.x-20,position.y);
+    image(playerSprite,position.x-radius*2,position.y-radius*2);
   }
 }

@@ -1,15 +1,13 @@
 class Items extends Unit{
  
   Items(){
-     sethitboxH(5);
-     sethitboxL(5);
+     setRadius(10);
      setCollectionRadius(15);
      setGravity(4);
   }
   
-  Items(int newHitH, int newHitL, int newColRad, int newGrav){
-    sethitboxH(newHitH);
-    sethitboxL(newHitL);
+  Items(int newRadius, int newColRad, int newGrav){
+    setRadius(newRadius);
     setCollectionRadius(newColRad);
     setGravity(newGrav);
   }

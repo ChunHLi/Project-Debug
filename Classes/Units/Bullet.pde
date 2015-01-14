@@ -1,7 +1,13 @@
 class Bullet extends Unit{
   boolean EdgeOfScreen;
+  int power;
   
   Bullet(){
+    setPower(10);
+  }
+  
+  void setPower(int newPower){
+    power = newPower;
   }
   
   void setEdgeOfScreen(boolean newBoolean){
