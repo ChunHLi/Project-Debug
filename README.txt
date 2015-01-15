@@ -37,6 +37,16 @@ static/pseudo-static.
     -Collisions can now be detected! PlayerBullet to Enemy Collision has now been included and Player to Enemy Collision has now been included.
     -Invulnerability when hit has now been included (Player only).
 
+1/14/15-Shawn Li - Not as much done as I would've wanted...
+    -Created EnemyShot Class.
+	~ However target lockon system has still not been implemented.
+        ~ Sprite still has to be picked.
+    -Created Item Class.
+	~ However Sprites have not been split yet.
+    -Created checkBoundary methods.
+	~ However ones for entire arrays have not been completed.
+    -Included Variables to store index numbers.
+
 
 Goals for 1/14/15:
 - Create and complete the enemyShot subclass.
@@ -59,3 +69,8 @@ Goals for 1/16/15:
 Goals for 1/17/15 - 1/19/15:
 - Creating the stage.
 - Cleaning up the code.
+
+What needs to be done ASAP:
+    -CheckBoundaryMethods for entire ArrayLists.
+    -Method to remove objects when their HP has dropped to 0.
+    -LockOn System for enemy bullets.
