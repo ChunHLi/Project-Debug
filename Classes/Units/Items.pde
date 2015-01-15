@@ -1,6 +1,6 @@
 class Items extends Unit{
 
-//Types: 0= P(small),; 1=P(large); 2=Point; 3= Multiplier (Tentative addition)
+//Types: 0= P,; 1=Life; 2=Point; 3= Multiplier (Tentative addition); 4=Bomb
 
 int type;
 PImage itemSprite; 
@@ -29,13 +29,16 @@ PImage itemSprite;
        other.setPower(other.power + 5);
      }
      if (type == 1){
-       other.setPower(other.power + 10);
+       other.setLives(other.Lives + 1);
      }
      if (type==2){
       other.setScore(other.Score + 50000);
      }
      if (type==3){
       other.setMultiplier(other.multiplier + 1);
+     }
+     if (type==4){
+      other.setBombs(other.Bombs + 1);
      }
    }
  }
