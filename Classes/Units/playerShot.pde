@@ -2,19 +2,21 @@ class playerShot extends Bullet{
  boolean contactEnemy;
  PImage pShotSprite;
  boolean FullPower;
+ int pShotCounter;
   
- playerShot(float x, float y,float velocityY){
+ playerShot(float x, float y,float velocityY,int newPShotCounter){
     position.x = x;
     position.y=y;
     velocity.y=velocityY;
     velocity.x=0;
     pShotSprite = loadImage("../../Sprites/Bullets/Enemy/BulletSprites.png");
-    
+    pShotCounter = newPShotCounter;
  }
  
- void checkBoundaryCollision(Enemy other){
+ void checkBoundaryCollision(Enemy other, ArrayList<playerShot> PShotList){
    if (super.checkBoundaryCollision(other)){
      other.setHP(other.HP - power);
+     PShotList.remove(pShotCounter);
    }
  }
  

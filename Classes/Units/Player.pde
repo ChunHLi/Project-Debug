@@ -4,7 +4,7 @@ class Player extends Unit{
   int Lives, Bombs, LCount, BCount, Score;
   boolean invuln;
   PImage playerSprite;
-  int invulnTime, power;
+  int invulnTime, power, multiplier;
   
   Player(){
     setLives(3);
@@ -12,16 +12,20 @@ class Player extends Unit{
     setLCount(0);
     setBCount(0);
     setScore(0);
+    setRadius(5);
+    setPower(0);
+    setMultiplier(1);
     position.x = width/2;
     position.y = height/2;
     velocity.x = 4;
     velocity.y = 4;
-    keys = new boolean[5];
+    keys = new boolean[6];
     keys[0] = false;
     keys[1] = false;
     keys[2] = false;
     keys[3] = false;
     keys[4] = false;
+    keys[5] = false;
     playerSprite = loadImage("../../Sprites/Player/Tohka/Base_Tohka.png");
     invuln = false;
   }
@@ -32,6 +36,10 @@ class Player extends Unit{
     setLCount(nLCount);
     setBCount(nBCount);
     setScore(nScore);
+  }
+  
+  void setPower(int nPower){
+    power = nPower;
   }
   
   void setLives(int newLives){
@@ -54,8 +62,8 @@ class Player extends Unit{
     Score = newScore;
   }
   
-  void setPower(int newP){
-    power = newP;
+  void setMultiplier(int newMultiplier){
+    multiplier = newMultiplier;
   }
   
   void checkBoundaryCollision(Enemy other){
@@ -68,39 +76,47 @@ class Player extends Unit{
     }
   }
   
-  void checkBoundaryCollision(Items other){
-  }
-  
-  void checkBoundaryCollision(Bullet other){
-  }
-  
-  void shootBullet(){
-  }
-  
-  void deployBomb(){
-  }
-  
   void moveUp(){
     if (position.y - velocity.y > 0){
-      position.y -= velocity.y;
+      if (keys[5]){
+        position.y -= velocity.y/2;
+      }
+      else{
+        position.y -= velocity.y;
+      }
     }
   }
   
   void moveDown(){
     if (position.y + velocity.y < height){
-      position.y += velocity.y;
+      if (keys[5]){
+        position.y += velocity.y/2;
+      }
+      else{
+        position.y += velocity.y;
+      }
     }
   }
   
   void moveLeft(){
     if (position.x - velocity.x > 0){
-      position.x -= velocity.x;
+      if (keys[5]){
+        position.x -= velocity.x/2;
+      }
+      else{
+        position.x -= velocity.x;
+      }
     }
   }
   
   void moveRight(){
     if (position.x + velocity.x < width){
-      position.x += velocity.x;
+      if (keys[5]){
+        position.x += velocity.x/2;
+      }
+      else{
+        position.x += velocity.x;
+      }
     }
   }
   void move(){
@@ -118,24 +134,28 @@ class Player extends Unit{
     }
     //background(103);
   }
-  void keyReleased(){
-    if (key == CODED){
-      if (keyCode == UP){
-        keys[0] = false;
-      }
-      else if (keyCode == DOWN){
-        keys[1] = false;
-      }
-      else if (keyCode == LEFT){
-        keys[2] = false;
-      }
-      else if (keyCode == RIGHT){
-        keys[3] = false;
-      }
-      keyCode = ' ';
-    }
-  }
+  //void keyReleased(){
+  //  if (key == CODED){
+  //    if (keyCode == UP){
+  //      keys[0] = false;
+  //    }
+  //    else if (keyCode == DOWN){
+  //      keys[1] = false;
+  //    }
+  //    else if (keyCode == LEFT){
+  //      keys[2] = false;
+  //   }
+  //    else if (keyCode == RIGHT){
+  //      keys[3] = false;
+  //    }
+  //    keyCode = ' ';
+  //  }
+  //}
   void display(){
-    image(playerSprite,position.x-radius*2,position.y-radius*2);
+    image(playerSprite,position.x-20,position.y-30);
+    if (keys[5]){
+      super.display();
+      
+    }
   }
 }

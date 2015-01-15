@@ -11,26 +11,31 @@ PImage itemSprite;
      setGravity(4);
      setType(0);
      itemSprite = loadImage("../../Sprites/Item/ItemSprites.png");
+     
   }
   
-  Items(int newRadius, int newColRad, int newGrav){
+  Items(int newRadius, int newColRad, int newGrav, int type){
     setRadius(newRadius);
     setCollectionRadius(newColRad);
     setGravity(newGrav);
+    setType(type);
   }
   
   int collectionRadius,gravity;
   
   void checkBoundaryCollision(Player other){
    if (super.checkBoundaryCollision(other)){
-     if (type==0){
-      other.setPower(power + 1);
+     if (type == 0){
+       other.setPower(other.power + 5);
      }
-     else if (type==2){
-      other.setScore(Score + 50000);
+     if (type == 1){
+       other.setPower(other.power + 10);
      }
-     else if (type==3){
-      other.setPower(power + 10);
+     if (type==2){
+      other.setScore(other.Score + 50000);
+     }
+     if (type==3){
+      other.setMultiplier(other.multiplier + 1);
      }
    }
  }

@@ -1,18 +1,21 @@
 class enemyShot extends Bullet{
  boolean contactPlayer;
  PImage eShotSprite;
+ int eShotCounter;
   
- enemyShot(float x, float y,float velocityX,float velocityY){
+ enemyShot(float x, float y,float velocityX,float velocityY,int newEShotCounter){
     position.x = x;
     position.y=y;
-    velocity.x=velocityX
+    velocity.x=velocityX;
     velocity.y=velocityY;
     eShotSprite = loadImage("../../Sprites/Bullets/Enemy/BulletSprites.png");
+    eShotCounter = newEShotCounter;
  }
  
- void checkBoundaryCollision(Player other){
+ void checkBoundaryCollision(Player other,ArrayList<enemyShot> EShotList){
    if (super.checkBoundaryCollision(other)){
      other.setHP(other.HP - 1);
+     EShotList.remove(eShotCounter);
    }
  }
  
@@ -20,7 +23,7 @@ class enemyShot extends Bullet{
    position.y += velocity.y;
    position.x += velocity.x;
  }
- void display(int x,int y,int eWidth,int eHeight){
-   image(eShotSprite.get(x,y,eWidth,eHeight),position.x-(eWidth / 2),position.y-(eHeight / 2));
+ void display(){
+   image(eShotSprite.get(1,32,18,20),position.x-9,position.y);
  }
 }
