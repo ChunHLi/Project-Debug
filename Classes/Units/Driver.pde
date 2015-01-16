@@ -3,10 +3,10 @@ ArrayList<playerShot> pShotList = new ArrayList<playerShot>(0);
 ArrayList<Enemy> enemyList = new ArrayList<Enemy>(0);
 ArrayList<enemyShot> eShotList = new ArrayList<enemyShot>(0);
 ArrayList<Items> itemList = new ArrayList<Items>(0);
-int ECounter = 0;
-int ICounter = 0;
-int ESCounter = 0;
-int PSCounter = 0;
+int ECounter;
+int ICounter;
+int PSCounter;
+int ESCounter;
 PImage a;
 float x;
 float y = 1;
@@ -18,32 +18,24 @@ void setup(){
   frameRate(60);
   size(480,720);
   playerList.add(new Player());
-  enemyList.add(new Enemy(50, 20, width/2, height/3, ECounter));
+  enemyList.add(new Enemy(50, 20, 10, width/2, height/6, 0));
   a = loadImage("../../Background/Background4.jpg");
 }
 void draw(){
   loopBackground();
   playerList.get(0).move();
   playerList.get(0).display();
-  playerList.get(0).checkBoundaryCollision(enemyList.get(0));
-  if (pShotList.size() > 0){
-    pShotList.get(0).checkBoundaryCollision(enemyList.get(0),pShotList);
-  }
-  playerShoot();
-  movePshots();
-  displayPShot();
+  enemyList.get(0).move();
+  displayEnemy();
+  playerBullets();
+  enemyAttack();
+  checkPlayerEnemyCollision();
   println("Player's HP: " + playerList.get(0).HP);
   println("Enemy's HP: " + enemyList.get(0).HP);
-  displayEnemy();
+  println(eShotList.size());
 }
 
 void keyPressed(){
-  if (key == 'z'){
-    keys[4] = true;
-  }
-  if (key == 'x'){
-    keys[5] = true;
-  }
     //if (key == 'x'){
     //  playerShot newPShot = new playerShot(playerList.get(0).position.x - playerList.get(0).velocity.x, playerList.get(0).position.y - playerList.get(0).velocity.y*3,playerList.get(0).velocity.y);
     //  pShotList.add(newPShot);
@@ -63,10 +55,13 @@ void keyPressed(){
     if (keyCode == RIGHT){
       keys[3] = true;
     }
-    //if (keyCode == SHIFT){
-    //  keys[5] = true;
-    //}
-  } 
+  }
+  if (key == 'c'){
+    keys[5] = true;
+  }
+  if (key == 'z'){
+    keys[4] = true;
+  }
 }
 
 void keyReleased(){
@@ -83,19 +78,34 @@ void keyReleased(){
       if (keyCode == RIGHT){
         keys[3] = false;
       }
-      //if (keyCode == SHIFT){
-      //  keys[5] = false;
-      //}
+  }
+  if (key == 'c'){
+    keys[5] = false;
   }
   if (key == 'z'){
     keys[4] = false;
   }
-  if (key == 'x'){
-    keys[5] = false;
+}
+
+void playerBullets(){
+  playerShoot();
+  checkBulletEnemyCollision();
+  movePshots();
+  displayPShot();
+}
+
+void enemyAttack(){
+  int counter = 0;
+  while (counter < enemyList.size()){
+    shootBullet(enemyList.get(counter));
+    counter += 1;
   }
+  checkBulletPlayerCollision();
+  moveEshots();
+  displayEShots();
 }
 void playerShoot(){
-  if (keys[4] == true && 40 - timer <= playerList.get(0).power){
+  if (keys[4] && 40 - timer <= playerList.get(0).power){
     pShotList.add(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10,PSCounter));
     timer = 0;
   }
@@ -131,6 +141,16 @@ void displayPShot(){
   }
 }
 
+void shootBullet(Enemy TheEnemy){
+  if (TheEnemy.timer <= 0){
+    eShotList.add(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,5,ESCounter, playerList));
+    TheEnemy.timer = TheEnemy.copyTimer;
+  }
+  else{
+    TheEnemy.timer -= 1;
+  }
+}
+
 void displayEShots(){
   int counter = 0;
   while (counter < eShotList.size()){
@@ -139,7 +159,7 @@ void displayEShots(){
   }
 }
 void displayEnemy(){
-  ECounter = 0;
+  int ECounter = 0;
   while (ECounter < enemyList.size()){
     enemyList.get(ECounter).display();
     ECounter += 1;
@@ -147,12 +167,49 @@ void displayEnemy(){
 }
 
 void displayItem(){
-  ICounter = 0;
+  int ICounter = 0;
   while (ICounter < itemList.size()){
     itemList.get(ICounter).display();
     ICounter += 1;
   }
 }
+
+ void checkBulletEnemyCollision(){
+   int counter = 0;
+   while (counter < enemyList.size()){
+     int counter2 = 0;
+     while (counter2 < pShotList.size()){
+       pShotList.get(counter2).checkBoundaryCollision(enemyList.get(counter),pShotList);
+       counter2 += 1;
+     }
+     counter += 1;
+   }
+ }
+
+void checkPlayerEnemyCollision(){
+  int counter = 0;
+  while (counter < playerList.size()){
+    int counter2 = 0;
+    while (counter2 < enemyList.size()){
+      playerList.get(counter).checkBoundaryCollision(enemyList.get(counter2));
+      counter2 += 1;
+    }
+    counter += 1;
+  }
+}
+
+void checkBulletPlayerCollision(){
+   int counter = 0;
+   while (counter < playerList.size()){
+     int counter2 = 0;
+     while (counter2 < eShotList.size()){
+       eShotList.get(counter2).checkBoundaryCollision(playerList.get(counter),eShotList);
+       counter2 += 1;
+     }
+     counter += 1;
+   }
+}
+
 void loopBackground(){
   image(a,0,int(y)); //scrollt bg naar beneden
   if(y > height){

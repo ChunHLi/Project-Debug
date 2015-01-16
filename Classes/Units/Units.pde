@@ -1,11 +1,11 @@
 class Unit{
   PVector position = new PVector(0,0);
-  PVector velocity = new PVector(4,4);
+  PVector velocity = new PVector(3,3);
   int HP;
   int radius;
   Unit(){
     position.set(0,0);
-    velocity.set(10,10);
+    velocity.set(5,2.5);
     HP = 1;
     radius = 10;
   }
@@ -13,7 +13,7 @@ class Unit{
   void display(){
     stroke(25);
     fill(250);
-    ellipse(position.x, position.y, radius*2, radius*2);
+    ellipse(position.x,position.y, radius * 2, radius * 2);
   }
   void setHP(int newHP){
     HP = newHP;
@@ -37,6 +37,6 @@ class Unit{
     }
     position.x += velocity.x;
     position.y += velocity.y;
-    background(103);
+    //background(103);
   }
 }

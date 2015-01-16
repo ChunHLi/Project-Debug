@@ -14,11 +14,14 @@ class playerShot extends Bullet{
  }
  
  void checkBoundaryCollision(Enemy other, ArrayList<playerShot> PShotList){
+   if (position.y - velocity.y < 0){
+     PShotList.remove(pShotCounter);
+   }
    if (super.checkBoundaryCollision(other)){
      other.setHP(other.HP - power);
      PShotList.remove(pShotCounter);
    }
- }
+ } 
  
  void moveBullet(){
    position.y -= velocity.y;

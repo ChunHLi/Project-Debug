@@ -25,12 +25,16 @@ class enemyShot extends Bullet{
    position.x += velocity.x;
  }
  void calcVXY(Player other){
-  float angle;
-  float dx = position.x - other.position.x;
-  float dy = position.y - other.position.x;
-  angle = atan(dx / dy);
-  velocity.x = (vel * sin(angle));
-  velocity.y = (vel * cos(angle));
+   int above = 1;
+   if (other.position.y <= position.y){
+     above = above*-1;
+   }
+   float angle;
+   float dx = position.x - other.position.x;
+   float dy = position.y - other.position.y;
+   angle = atan(dx / dy);
+   velocity.x = above*(vel * sin(angle));
+   velocity.y = above*(vel * cos(angle));
  }
 
  void display(){

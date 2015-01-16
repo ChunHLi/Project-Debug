@@ -13,7 +13,7 @@ class Player extends Unit{
     setBCount(0);
     setScore(0);
     setRadius(5);
-    setPower(0);
+    setPower(20);
     setMultiplier(1);
     position.x = width/2;
     position.y = height/2;
