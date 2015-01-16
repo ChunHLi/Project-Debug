@@ -47,30 +47,7 @@ static/pseudo-static.
 	~ However ones for entire arrays have not been completed.
     -Included Variables to store index numbers.
 
-
-Goals for 1/14/15:
-- Create and complete the enemyShot subclass.
-- Create and complete the item class.
-- Create the checkBoundary methods for entire Arrays.
-- Include variables to store the index numbers of elements in an array within the element. (This will be used in order to remove bullets when they hit an enemy, remove enemies when they run out of HP, etc).
-
-Goals for 1/15/15:
-- Complete any goals that weren't reached on 1/14/15.
-- Create the interface which shows lives and etc.
-- Create respawn method.
-- Create shootBomb method.
-- Create scoring system. 
-
-Goals for 1/16/15:
-- Create subclasses, (mostly enemies, player classes, 
-- Attach sprites to subclasses and classes. 
-- Create menu.
-
-Goals for 1/17/15 - 1/19/15:
-- Creating the stage.
-- Cleaning up the code.
-
-What needs to be done ASAP:
-    -CheckBoundaryMethods for entire ArrayLists.
-    -Method to remove objects when their HP has dropped to 0.
-    -LockOn System for enemy bullets.
+1/15/15-Oscar Ngan/Shawn Li-
+    -Created Enemy lock on system.
+    -Every checkBoundary method (even for arrays) have been made except to items
+    -Created EnemyShot Class (complete)
