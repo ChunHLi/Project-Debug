@@ -11,5 +11,4 @@ class Boss1 extends Enemy{
     attackTimer = 1800;
   }
   
-  
 }
