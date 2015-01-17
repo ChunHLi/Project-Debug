@@ -55,3 +55,7 @@ static/pseudo-static.
 1/16/15-Shawn Li-
     -Created the base interface.
     -The main classes are complete except for items which need gravity implemented and respawn.
+
+1/17/15-Shawn Li-
+    -Main Classes are officially complete
+    -Starting subclasses, stages, and bosses.
