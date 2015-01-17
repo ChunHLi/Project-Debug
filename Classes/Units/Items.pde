@@ -5,26 +5,28 @@ class Items extends Unit{
 int type;
 PImage itemSprite; 
 int iCounter;
- 
+
   Items(){
      position.x = width/4;
      position.y = height/3;
      setRadius(20);
-     setGravity(4);
+     setGravity(.1);
      setType(0);
      itemSprite = loadImage("../../Sprites/Item/ItemSprites.png");
      iCounter = 0;
-     
+     velocity.y = -5;
+     setTermVel(3);
   }
   
-  Items(int newRad, int newGrav, int type, int ICounter){
+  Items(int newRad, float newGrav, int type, int ICounter,float newTVel){
     setRadius(newRad);
     setGravity(newGrav);
     setType(type);
     iCounter = ICounter;
+    setTermVel(newTVel);
   }
   
-  int collectionRadius,gravity;
+  float collectionRadius,gravity, termVel;
   
   void checkBoundaryCollision(Player other){
    if (super.checkBoundaryCollision(other)){
@@ -47,14 +49,17 @@ int iCounter;
    }
  }
   
-  void setCollectionRadius(int newCollectionRadius){
+  void setCollectionRadius(float newCollectionRadius){
     collectionRadius = newCollectionRadius;
   }
-  void setGravity(int newGravity){
+  void setGravity(float newGravity){
     gravity = newGravity;
   }
   void setType(int newType){
     type = newType;
+  }
+  void setTermVel(float newTermVel){
+    termVel = newTermVel;
    }
    
    void display(){
@@ -73,5 +78,12 @@ int iCounter;
      if (type == 4){ 
       image(itemSprite.get(20,1,16,16),position.x-8,position.y-8);
      }
+  }
+  
+  void drop(){
+    if (velocity.y < termVel){
+      velocity.y += gravity;
+    }
+    position.y += velocity.y;    
   }
 }
