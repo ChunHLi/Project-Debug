@@ -1,8 +1,7 @@
 class Enemy extends Unit{
     int Ecounter;
     PImage enemySprite;
-    int timer;
-    int copyTimer;
+    int timer, copyTimer, type;
     
   Enemy(){
     setHP(50);
@@ -12,9 +11,10 @@ class Enemy extends Unit{
     enemySprite = loadImage("../../Sprites/Enemy/Generic/EnemySprites.png");    
     timer = 10;
     copyTimer = 10;
+    type = 0;
   }
   
-  Enemy(int nHP, int nRadius, int nTimer, float positionX, float positionY, int ECounter){
+  Enemy(int nHP, int nRadius, int nTimer, float positionX, float positionY, int ECounter, int newType){
     Ecounter = ECounter;
     setHP(50);
     setRadius(10);
@@ -23,6 +23,7 @@ class Enemy extends Unit{
     enemySprite = loadImage("../../Sprites/Enemy/Generic/EnemySprites.png");
     timer = nTimer;
     copyTimer = nTimer;
+    int newType;
   }
   
   void display(){
