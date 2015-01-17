@@ -49,5 +49,9 @@ static/pseudo-static.
 
 1/15/15-Oscar Ngan/Shawn Li-
     -Created Enemy lock on system.
-    -Every checkBoundary method (even for arrays) have been made except to items
-    -Created EnemyShot Class (complete)
+    -Every checkBoundary method (even for arrays) have been made except to items.
+    -Created EnemyShot Class (complete).
+
+1/16/15-Shawn Li-
+    -Created the base interface.
+    -The main classes are complete except for items which need gravity implemented and respawn.
