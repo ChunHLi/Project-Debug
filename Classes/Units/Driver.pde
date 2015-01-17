@@ -38,6 +38,9 @@ void draw(){
   playerMove();
   enemyMove();
   itemMove();
+  if (itemList.size() > 0){
+    itemList.get(0).drop();
+  }
   playerBullets();
   enemyAttack();
   checkPlayerEnemyCollision();
@@ -100,13 +103,29 @@ void Interface(){
   if (playerList.size() > 0){
     text("Score: " + pseudoScore + playerList.get(0).Score, width/2 + 10, 32);
     fill(255);
-    text("HP: " + playerList.get(0).HP, width/2 + 10, 60);
+    text("Lives: " + playerList.get(0).Lives, width/2 + 10, 60);
+    fill(255);
+    text("Power: " + playerList.get(0).power, width/2 + 10, 88);
+    fill(255);
+    text("Bombs: " + playerList.get(0).Bombs, width/2 + 10, 116);
+    fill(255);
+    text("Life Pieces: " + playerList.get(0).LCount, width/2 + 10, 144);
+    fill(255);
+    text("Bomb Pieces: " + playerList.get(0).BCount, width/2 + 10, 172);
     fill(255);
   }
   else{
     text("Score: " + pseudoScore, width/2 + 10, 30);
     fill(255);
     text("HP: " + 0, width/2 + 10, 64);
+    text("Power: " + 0, width/2 + 10, 88);
+    fill(255);
+    text("Bombs: " + 0, width/2 + 10, 116);
+    fill(255);
+    text("Life Pieces: " + 0, width/2 + 10, 144);
+    fill(255);
+    text("Bomb Pieces: " + 0, width/2 + 10, 172);
+    fill(255);
   }
 }
 
@@ -142,6 +161,7 @@ void itemMove(){
   if (itemList.size() > 0){
     while (counter < itemList.size()){
       itemList.get(counter).display();
+      itemList.get(counter).drop();
       counter += 1;
     }
   }
