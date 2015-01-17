@@ -18,12 +18,16 @@ int iCounter;
      setTermVel(3);
   }
   
-  Items(int newRad, float newGrav, int type, int ICounter,float newTVel){
+  Items(float positionX, float positionY,int newRad, float newGrav, int type, int ICounter,float newTVel){
+    itemSprite = loadImage("../../Sprites/Item/ItemSprites.png");
+    position.x = positionX;
+    position.y = positionY;
     setRadius(newRad);
     setGravity(newGrav);
     setType(type);
     iCounter = ICounter;
     setTermVel(newTVel);
+    velocity.y = -3;
   }
   
   float collectionRadius,gravity, termVel;
@@ -34,7 +38,7 @@ int iCounter;
        other.setPower(other.power + 5);
      }
      if (type == 1){
-       other.setLives(other.Lives + 1);
+       other.setHP(other.HP + 1);
      }
      if (type==2){
       other.setScore(other.Score + 50000);

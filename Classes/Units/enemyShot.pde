@@ -25,9 +25,19 @@ class enemyShot extends Bullet{
    }
    else{
      if (super.checkBoundaryCollision(other)){
-       other.setHP(other.HP - 1);
+       if (other.invulnTime == 0){;
+         other.setHP(other.HP - 1);
+         if (other.power > 80){
+           other.power = 40;
+         }
+         else{
+           other.power = other.power/2;
+         }
+         other.invulnTime = 3600;
+         other.position.x = width/4;
+         other.position.y = 2*height/3;
+       }
        removeEShot(eShotCounter);
-       other.invulnTime = 120;
      }
    }
  }

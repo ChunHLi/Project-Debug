@@ -22,7 +22,7 @@ void setup(){
   playerList.add(new Player());
   addEnemy(new Enemy(50, 20, 10, width/8, height/6, ECounter));
   addEnemy(new Enemy(50, 20, 10, 3*width/8, height/6, ECounter));
-  addItem(new Items());
+  addItem(new Items(width/4,height/3,20,.1,1,0,3));
   a = loadImage("../../Background/Background4.jpg");
 }
 void draw(){
@@ -103,7 +103,7 @@ void Interface(){
   if (playerList.size() > 0){
     text("Score: " + pseudoScore + playerList.get(0).Score, width/2 + 10, 32);
     fill(255);
-    text("Lives: " + playerList.get(0).Lives, width/2 + 10, 60);
+    text("Lives: " + playerList.get(0).HP, width/2 + 10, 60);
     fill(255);
     text("Power: " + playerList.get(0).power, width/2 + 10, 88);
     fill(255);
@@ -117,7 +117,7 @@ void Interface(){
   else{
     text("Score: " + pseudoScore, width/2 + 10, 30);
     fill(255);
-    text("HP: " + 0, width/2 + 10, 64);
+    text("Lives: " + 0, width/2 + 10, 64);
     text("Power: " + 0, width/2 + 10, 88);
     fill(255);
     text("Bombs: " + 0, width/2 + 10, 116);
@@ -178,12 +178,52 @@ void enemyAttack(){
   moveEshots();
   displayEShots();
 }
+
+
+
 void playerShoot(){
-  if (keys[4] && 40 - timer <= playerList.get(0).power){
-    addPShot(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10,PSCounter));
-    timer = 0;
+  if (keys[4]){
+    if (playerList.get(0).power > 80){
+      if ((25 - timer) <= 80 - 60){
+        addPShot(new playerShot(playerList.get(0).position.x - 15, playerList.get(0).position.y,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x - 5, playerList.get(0).position.y - 10,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x + 5, playerList.get(0).position.y - 10,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x + 15, playerList.get(0).position.y,10,PSCounter));
+        timer = 0;
+      }
+    }
+    else if (playerList.get(0).power > 60){
+      if ((25 - timer) <= playerList.get(0).power - 60){
+        addPShot(new playerShot(playerList.get(0).position.x - 15, playerList.get(0).position.y,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x - 5, playerList.get(0).position.y - 10,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x + 5, playerList.get(0).position.y - 10,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x + 15, playerList.get(0).position.y,10,PSCounter));
+        timer = 0;
+      }
+    }
+    else if (playerList.get(0).power > 40){
+      if ((25 - timer) <= playerList.get(0).power - 40){
+        addPShot(new playerShot(playerList.get(0).position.x - 10, playerList.get(0).position.y,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y - 10,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x + 10, playerList.get(0).position.y,10,PSCounter));
+        timer = 0;
+      }
+    }
+    else if (playerList.get(0).power > 20){
+      if ((25 - timer) <= playerList.get(0).power - 20){
+        addPShot(new playerShot(playerList.get(0).position.x - 5, playerList.get(0).position.y,10,PSCounter));
+        addPShot(new playerShot(playerList.get(0).position.x + 5, playerList.get(0).position.y,10,PSCounter));
+        timer = 0;
+      }
+    }
+    else if (playerList.get(0).power >= 0){
+      if ((25 - timer) <= playerList.get(0).power){
+        addPShot(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10,PSCounter));
+        timer = 0;
+      }
+    }
   }
-  if (timer < 40){
+  if (timer < 25){
     timer += 1;
   }
 }

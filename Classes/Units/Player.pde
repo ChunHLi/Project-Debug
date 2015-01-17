@@ -12,10 +12,10 @@ class Player extends Unit{
     setBCount(0);
     setScore(0);
     setRadius(5);
-    setPower(20);
+    setPower(80);
     setMultiplier(1);
     position.x = width/4;
-    position.y = height/2;
+    position.y = 2*height/3;
     velocity.x = 6;
     velocity.y = 6;
     keys = new boolean[6];
@@ -26,6 +26,7 @@ class Player extends Unit{
     keys[4] = false;
     keys[5] = false;
     playerSprite = loadImage("../../Sprites/Player/Tohka/Base_Tohka.png");
+    invulnTime = 1800;
   }
   
   Player(int nLives, int nBombs, int nPower, int nLCount, int nBCount, int nScore){
@@ -73,10 +74,20 @@ class Player extends Unit{
       invulnTime -= 1;
     }
     else if (super.checkBoundaryCollision(other)){
-      setHP(HP - 1);
-      invulnTime = 120;
-      if (HP <= 0){
-        playerList.remove(0);
+      if (invulnTime == 0){
+        setHP(HP - 1);
+        if (power > 80){
+          setPower(40);
+        }
+        else{
+          setPower(power/2);
+        }
+        invulnTime = 3600;
+        position.x = width/4;
+        position.y = 2*height/3;
+        if (HP <= 0){
+          playerList.remove(0);
+        }
       }
     }
   }
@@ -157,7 +168,9 @@ class Player extends Unit{
   //  }
   //}
   void display(){
-    image(playerSprite,position.x-20,position.y-30);
+    if (invulnTime % 5 == 0){
+      image(playerSprite,position.x-20,position.y-30);
+    }
     if (keys[5]){
       super.display();
       
