@@ -59,3 +59,7 @@ static/pseudo-static.
 1/17/15-Shawn Li-
     -Main Classes are officially complete
     -Starting subclasses, stages, and bosses.
+
+1/17/15-Shawn Li-
+    -Huge setup upon discovery that processing cannot handle the loading of many sprites at once, had to take a lot of time off to make ellipses.
+    -Different attack patterns made for different enemies
