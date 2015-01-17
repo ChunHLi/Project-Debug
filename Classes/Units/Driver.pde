@@ -7,32 +7,40 @@ int ECounter;
 int ICounter;
 int PSCounter;
 int ESCounter;
+int pseudoScore;
 PImage a;
 float x;
 float y = 1;
 boolean[] keys;
 int timer = 0;
+int InterfaceUpdateTimer = 59;
 
 
 void setup(){
   frameRate(60);
-  size(480,720);
+  size(960,720);
   playerList.add(new Player());
-  enemyList.add(new Enemy(50, 20, 10, width/2, height/6, 0));
+  addEnemy(new Enemy(50, 20, 10, width/8, height/6, ECounter));
+  addEnemy(new Enemy(50, 20, 10, 3*width/8, height/6, ECounter));
+  addItem(new Items());
   a = loadImage("../../Background/Background4.jpg");
 }
 void draw(){
+  if (InterfaceUpdateTimer > 0){
+    InterfaceUpdateTimer -= 1;
+  }
+  else{
+    background(0);
+    Interface();
+    InterfaceUpdateTimer = 59;
+  }
   loopBackground();
-  playerList.get(0).move();
-  playerList.get(0).display();
-  enemyList.get(0).move();
-  displayEnemy();
+  playerMove();
+  enemyMove();
+  itemMove();
   playerBullets();
   enemyAttack();
   checkPlayerEnemyCollision();
-  println("Player's HP: " + playerList.get(0).HP);
-  println("Enemy's HP: " + enemyList.get(0).HP);
-  println(eShotList.size());
 }
 
 void keyPressed(){
@@ -87,11 +95,57 @@ void keyReleased(){
   }
 }
 
+void Interface(){
+  textSize(32);
+  if (playerList.size() > 0){
+    text("Score: " + pseudoScore + playerList.get(0).Score, width/2 + 10, 32);
+    fill(255);
+    text("HP: " + playerList.get(0).HP, width/2 + 10, 60);
+    fill(255);
+  }
+  else{
+    text("Score: " + pseudoScore, width/2 + 10, 30);
+    fill(255);
+    text("HP: " + 0, width/2 + 10, 64);
+  }
+}
+
+void playerMove(){
+  if (playerList.size() > 0){
+    playerList.get(0).move();
+    playerList.get(0).display();
+  }
+}
+
 void playerBullets(){
-  playerShoot();
-  checkBulletEnemyCollision();
-  movePshots();
-  displayPShot();
+  if (playerList.size() > 0){
+    playerShoot();
+    checkBulletEnemyCollision();
+    movePshots();
+    displayPShot();
+  }
+}
+
+void enemyMove(){
+  int counter = 0;
+  if (enemyList.size() > 0){
+    while (counter < enemyList.size()){
+      enemyList.get(counter).move();
+      counter += 1;
+      displayEnemy();
+    }
+  }
+}
+
+void itemMove(){
+  int counter = 0;
+  if (itemList.size() > 0){
+    while (counter < itemList.size()){
+      itemList.get(counter).display();
+      counter += 1;
+    }
+  }
+  checkItemPlayerCollision();  
 }
 
 void enemyAttack(){
@@ -106,7 +160,7 @@ void enemyAttack(){
 }
 void playerShoot(){
   if (keys[4] && 40 - timer <= playerList.get(0).power){
-    pShotList.add(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10,PSCounter));
+    addPShot(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10,PSCounter));
     timer = 0;
   }
   if (timer < 40){
@@ -143,7 +197,7 @@ void displayPShot(){
 
 void shootBullet(Enemy TheEnemy){
   if (TheEnemy.timer <= 0){
-    eShotList.add(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,5,ESCounter, playerList));
+    addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,5,ESCounter, playerList));
     TheEnemy.timer = TheEnemy.copyTimer;
   }
   else{
@@ -181,6 +235,10 @@ void displayItem(){
      while (counter2 < pShotList.size()){
        pShotList.get(counter2).checkBoundaryCollision(enemyList.get(counter),pShotList);
        counter2 += 1;
+       if (enemyList.get(counter).HP <= 0){
+         removeEnemy(enemyList.get(counter).Ecounter);
+         break;
+       }
      }
      counter += 1;
    }
@@ -205,9 +263,90 @@ void checkBulletPlayerCollision(){
      while (counter2 < eShotList.size()){
        eShotList.get(counter2).checkBoundaryCollision(playerList.get(counter),eShotList);
        counter2 += 1;
+       if (playerList.get(counter).HP <= 0){
+         playerList.remove(0);
+         break;
+       }
+     }
+     counter += 1;
+     
+   }
+}
+
+void checkItemPlayerCollision(){
+   int counter = 0;
+   while (counter < playerList.size()){
+     int counter2 = 0;
+     while (counter2 < itemList.size()){
+       itemList.get(counter2).checkBoundaryCollision(playerList.get(counter));
+       counter2 += 1;
+       if (playerList.get(counter).HP <= 0){
+         playerList.remove(0);
+         break;
+       }
      }
      counter += 1;
    }
+}
+
+void addEnemy(Enemy TheEnemy){
+  enemyList.add(TheEnemy);
+  ECounter += 1;
+}
+
+void removeEnemy(int ecounter){
+  int Counter = ecounter + 1;
+  while (Counter < enemyList.size()){
+    enemyList.get(Counter).Ecounter -= 1;
+    Counter += 1;
+  }
+  enemyList.remove(ecounter);
+  ECounter -= 1;
+}
+
+void addItem(Items TheItem){
+  itemList.add(TheItem);
+  ICounter += 1;
+}
+
+void removeItem(int icounter){
+  int Counter = icounter + 1;
+  while (Counter < itemList.size()){
+    itemList.get(Counter).iCounter -= 1;
+    Counter += 1;
+  }
+  itemList.remove(icounter);
+  ICounter -= 1;
+}
+
+void addPShot(playerShot ThePlayerShot){
+  pShotList.add(ThePlayerShot);
+  PSCounter += 1;
+}
+
+void removePShot(int pscounter){
+  int Counter = pscounter + 1;
+  while (Counter < pShotList.size()){
+    pShotList.get(Counter).pShotCounter -= 1;
+    Counter += 1;
+  }
+  pShotList.remove(pscounter);
+  PSCounter -= 1;
+}
+
+void addEShot(enemyShot TheEnemyShot){
+  eShotList.add(TheEnemyShot);
+  ESCounter += 1;
+}
+
+void removeEShot(int escounter){
+  int Counter = escounter + 1;
+  while (Counter < eShotList.size()){
+    eShotList.get(Counter).eShotCounter -= 1;
+    Counter += 1;
+  }
+  eShotList.remove(escounter);
+  ESCounter -= 1; 
 }
 
 void loopBackground(){
@@ -219,5 +358,3 @@ void loopBackground(){
   image(a.get(0,a.height-int(y),a.width,a.height),0,0);
   y += 2;
 }
-
-

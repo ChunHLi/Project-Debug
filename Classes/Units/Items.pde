@@ -4,21 +4,24 @@ class Items extends Unit{
 
 int type;
 PImage itemSprite; 
+int iCounter;
  
   Items(){
-     setRadius(10);
-     setCollectionRadius(15);
+     position.x = width/4;
+     position.y = height/3;
+     setRadius(20);
      setGravity(4);
      setType(0);
      itemSprite = loadImage("../../Sprites/Item/ItemSprites.png");
+     iCounter = 0;
      
   }
   
-  Items(int newRadius, int newColRad, int newGrav, int type){
-    setRadius(newRadius);
-    setCollectionRadius(newColRad);
+  Items(int newRad, int newGrav, int type, int ICounter){
+    setRadius(newRad);
     setGravity(newGrav);
     setType(type);
+    iCounter = ICounter;
   }
   
   int collectionRadius,gravity;
@@ -40,6 +43,7 @@ PImage itemSprite;
      if (type==4){
       other.setBombs(other.Bombs + 1);
      }
+     removeItem(iCounter);
    }
  }
   
@@ -52,4 +56,22 @@ PImage itemSprite;
   void setType(int newType){
     type = newType;
    }
+   
+   void display(){
+     if (type == 0){ 
+      image(itemSprite.get(40,1,16,16),position.x-8,position.y-8);
+     }
+     if (type == 1){ 
+      image(itemSprite.get(1,1,16,16),position.x-8,position.y-8);
+     }
+     if (type == 2){ 
+      image(itemSprite.get(1,20,16,16),position.x-8,position.y-8);
+     }
+     if (type == 3){ 
+      image(itemSprite.get(20,20,16,16),position.x-8,position.y-8);
+     }
+     if (type == 4){ 
+      image(itemSprite.get(20,1,16,16),position.x-8,position.y-8);
+     }
+  }
 }

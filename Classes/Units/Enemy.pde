@@ -1,5 +1,5 @@
 class Enemy extends Unit{
-    int counter;
+    int Ecounter;
     PImage enemySprite;
     int timer;
     int copyTimer;
@@ -15,7 +15,7 @@ class Enemy extends Unit{
   }
   
   Enemy(int nHP, int nRadius, int nTimer, float positionX, float positionY, int ECounter){
-    counter = ECounter;
+    Ecounter = ECounter;
     setHP(50);
     setRadius(10);
     position.x = positionX;

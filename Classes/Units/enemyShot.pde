@@ -10,20 +10,43 @@ class enemyShot extends Bullet{
     vel = nvel;
     eShotSprite = loadImage("../../Sprites/Bullets/Enemy/BulletSprites.png");
     eShotCounter = newEShotCounter;
-    calcVXY(whatever.get(0));
+    if (playerList.size() > 0){
+      calcVXY(whatever.get(0));
+    }
+    else{
+      velocity.x = 10;
+      velocity.y = 10;
+    }
  }
  
  void checkBoundaryCollision(Player other,ArrayList<enemyShot> EShotList){
-   if (super.checkBoundaryCollision(other)){
-     other.setHP(other.HP - 1);
-     EShotList.remove(eShotCounter);
+   if (other.invulnTime > 0){
+     other.invulnTime -= 1;
+   }
+   else{
+     if (super.checkBoundaryCollision(other)){
+       other.setHP(other.HP - 1);
+       removeEShot(eShotCounter);
+       other.invulnTime = 120;
+     }
    }
  }
  
  void moveBullet(){
-   position.y += velocity.y;
-   position.x += velocity.x;
+   if (position.y + velocity.y < height && position.y + velocity.x > 0){
+     position.y += velocity.y;
+   }
+   if (position.y + velocity.y > height || position.y + velocity.x < 0){
+     removeEShot(eShotCounter);
+   }
+   if (position.x + velocity.x + 5 <= width/2 && position.x + velocity.x > 0){
+     position.x += velocity.x;
+   }
+   if (position.x + velocity.x + 5> width/2 || position.x + velocity.x < 0){
+     removeEShot(eShotCounter);
+   }
  }
+   
  void calcVXY(Player other){
    int above = 1;
    if (other.position.y <= position.y){

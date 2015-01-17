@@ -6,7 +6,7 @@ class Unit{
   Unit(){
     position.set(0,0);
     velocity.set(5,2.5);
-    HP = 1;
+    HP = 3;
     radius = 10;
   }
 
@@ -29,10 +29,10 @@ class Unit{
     return check;
   }
   void move(){
-    if (position.x > width - radius || position.x < 0){
+    if (position.x + 15 > width/2 || position.x < 0){
       velocity.x = velocity.x*-1;
     }
-    else if (position.y > height - radius || position.y < 0){
+    else if (position.y + 15 > 3*height/4 || position.y < 0){
       velocity.y = velocity.y*-1;
     }
     position.x += velocity.x;
