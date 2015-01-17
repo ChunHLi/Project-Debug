@@ -16,6 +16,6 @@ class Bullet extends Unit{
   
   void display(){
     stroke(153);
-    ellipse(position.x,position.y,100,200);
+    ellipse(position.x,position.y,10,10);
   }
 }

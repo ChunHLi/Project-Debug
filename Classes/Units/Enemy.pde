@@ -14,16 +14,18 @@ class Enemy extends Unit{
     type = 0;
   }
   
-  Enemy(int nHP, int nRadius, int nTimer, float positionX, float positionY, int ECounter, int newType){
+  Enemy(int nHP, int nRadius, int nTimer, float positionX, float positionY, float velocityX, float velocityY, int ECounter, int newType){
     Ecounter = ECounter;
     setHP(50);
     setRadius(10);
     position.x = positionX;
     position.y = positionY;
+    velocity.x = velocityX;
+    velocity.y = velocityY;
     enemySprite = loadImage("../../Sprites/Enemy/Generic/EnemySprites.png");
     timer = nTimer;
     copyTimer = nTimer;
-    int newType;
+    type = newType;
   }
   
   void display(){

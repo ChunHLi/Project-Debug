@@ -1,21 +1,24 @@
 class enemyShot extends Bullet{
- boolean contactPlayer;
- PImage eShotSprite;
- int eShotCounter;
- float vel;
+  int eShotCounter;
+  float vel;
   
- enemyShot(float x, float y,float nvel, int newEShotCounter, ArrayList<Player> whatever){
+ enemyShot(float x, float y,float nvelx,float nvely, int newEShotCounter, ArrayList<Player> whatever,int enemyType){
     position.x = x;
     position.y=y;
-    vel = nvel;
-    eShotSprite = loadImage("../../Sprites/Bullets/Enemy/BulletSprites.png");
+    vel = nvelx;
     eShotCounter = newEShotCounter;
-    if (playerList.size() > 0){
-      calcVXY(whatever.get(0));
+    if (enemyType == 0 || enemyType == 2){
+      if (playerList.size() > 0){
+        calcVXY(whatever.get(0));
+      }
+      else{
+        velocity.x = 10;
+        velocity.y = 10;
+      }
     }
-    else{
-      velocity.x = 10;
-      velocity.y = 10;
+    if (enemyType == 1){
+      velocity.x = nvelx;
+      velocity.y = nvely;
     }
  }
  
@@ -33,7 +36,7 @@ class enemyShot extends Bullet{
          else{
            other.power = other.power/2;
          }
-         other.invulnTime = 3600;
+         other.invulnTime = 18000;
          other.position.x = width/4;
          other.position.y = 2*height/3;
        }
@@ -71,6 +74,10 @@ class enemyShot extends Bullet{
  }
 
  void display(){
-   image(eShotSprite.get(1,32,18,20),position.x-9,position.y);
+    stroke(25);
+    fill(67,4,4);
+    ellipse(position.x,position.y,radius*3,radius*3);
+    fill(240,8,8);
+    ellipse(position.x + .5,position.y + .5, radius*2, radius*2);
  }
 }

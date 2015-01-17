@@ -7,13 +7,13 @@ class Unit{
     position.set(0,0);
     velocity.set(5,2.5);
     HP = 3;
-    radius = 10;
+    radius = 5;
   }
 
   void display(){
     stroke(25);
     fill(250);
-    ellipse(position.x,position.y, radius * 2, radius * 2);
+    ellipse(position.x,position.y, radius *2, radius * 2);
   }
   void setHP(int newHP){
     HP = newHP;
@@ -29,10 +29,10 @@ class Unit{
     return check;
   }
   void move(){
-    if (position.x + 15 > width/2 || position.x < 0){
+    if (position.x + 20 > width/2 || position.x - 20 < 0){
       velocity.x = velocity.x*-1;
     }
-    else if (position.y + 15 > 3*height/4 || position.y < 0){
+    else if (position.y + 20 > 3*height/4 || position.y < 0){
       velocity.y = velocity.y*-1;
     }
     position.x += velocity.x;

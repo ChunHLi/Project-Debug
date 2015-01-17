@@ -1,5 +1,5 @@
 class Boss2 extends Enemy{
-  int attacksLeft, attacktimer;
+  int attacksLeft, attackTimer;
   
   Boss2(){
     setHP(250000);

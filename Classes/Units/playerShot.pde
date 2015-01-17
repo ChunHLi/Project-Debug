@@ -9,7 +9,6 @@ class playerShot extends Bullet{
     position.y=y;
     velocity.y=velocityY;
     velocity.x=0;
-    pShotSprite = loadImage("../../Sprites/Bullets/Enemy/BulletSprites.png");
     pShotCounter = newPShotCounter;
  }
  
@@ -28,6 +27,11 @@ class playerShot extends Bullet{
    position.y -= velocity.y;
  }
  void display(){
-   image(pShotSprite.get(1,32,18,20),position.x-9,position.y);
+   stroke(0);
+   fill(68,6,62);
+   ellipse(position.x,position.y,radius*2,radius*2);
+   fill(210,28,192);
+   noStroke();
+   ellipse(position.x + .5,position.y + .5,radius*1, radius * 1);
  }
 }
