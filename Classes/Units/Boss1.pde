@@ -15,6 +15,7 @@ class Boss1 extends Enemy{
     bossTimer = 0;
     bossCopyTimer = 60;
     type = 3;
+    radius = 20;
   }
   
   void move(){
