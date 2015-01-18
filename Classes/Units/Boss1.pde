@@ -4,7 +4,6 @@ class Boss1 extends Enemy{
   
   Boss1(){
     setHP(731);
-    //setRadius(10);
     position.x = width/4;
     position.y = height/5;
     enemySprite = loadImage("../../Sprites/Enemy/Boss/Masaki.png");    

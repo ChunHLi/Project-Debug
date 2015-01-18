@@ -125,7 +125,6 @@ class enemyShot extends Bullet{
      }
    }
  }
-   
  void calcVXY(Player other){
    int above = 1;
    if (other.position.y <= position.y){

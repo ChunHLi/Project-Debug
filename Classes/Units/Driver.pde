@@ -467,7 +467,7 @@ void loopBackground(){
 
 void boss1Attack(){
   if (enemyList.get(0).attacksLeft == 3){
-      boss1Attack();
+      boss1Attack1();
     }
     if (enemyList.get(0).attacksLeft == 2){
       boss1SpecialAttack1();
