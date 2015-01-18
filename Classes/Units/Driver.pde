@@ -542,9 +542,9 @@ void boss1Attack1(){
     enemyList.get(0).sin += 330;
     if (enemyList.get(0).bossTimer <= 0){
       int counter = 0;
-      while (counter < 17){
-        addEShot(new enemyShot(50 + counter*25,50 + counter*10,0,0,ESCounter,6));
-        addEShot(new enemyShot(width/2 - 49 - counter*25,50 + counter*10,0,0,ESCounter,6));
+      while (counter < 15){
+        addEShot(new enemyShot(50 + counter*26,50 + counter*10,0,0,ESCounter,6));
+        addEShot(new enemyShot(width/2 - 49 - counter*26,50 + counter*10,0,0,ESCounter,6));
         counter += 1;
       }
       addEShot(new enemyShot(50,50,20,10,ESCounter,4));
@@ -552,11 +552,7 @@ void boss1Attack1(){
       enemyList.get(0).bossTimer = enemyList.get(0).bossCopyTimer;
     }
     else{
-      enemyList.get(0).bossTimer -= 1;
-      
-      
-      
-      
+      enemyList.get(0).bossTimer -= 1;       
     }
   }
   void attack2(){

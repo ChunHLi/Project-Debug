@@ -151,7 +151,7 @@ class enemyShot extends Bullet{
      strokeWeight(2);
      stroke(0);
      fill(255);
-     triangle(position.x - 7, position.y -7, position.x,position.y + 10, position.x +7, position.y -7);
+     triangle(position.x - 8, position.y -8, position.x,position.y + 10, position.x +8, position.y -7);
    }
  }
 }
