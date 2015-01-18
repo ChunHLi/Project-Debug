@@ -13,5 +13,20 @@ class Boss3 extends Enemy{
     attackTimer = 4200;
   }
   
-  
+  void move(){
+    if (position.x + 20 > width/2){
+      position.x -= velocity.x;
+    }
+    else if (position.x - 20 < 0){
+      position.x += velocity.x;
+    }    
+    else{
+      if (random(2) == 0){
+        position.x += velocity.x;
+      }
+      else{
+        position.x -= velocity.x;
+      }
+    }
+  }
 }

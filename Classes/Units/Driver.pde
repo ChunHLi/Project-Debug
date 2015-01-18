@@ -20,9 +20,9 @@ void setup(){
   frameRate(60);
   size(960,720);
   playerList.add(new Player());
-  addEnemy(new Enemy(50, 20, 10, width/8, height/6, 3, 1.5, ECounter,0));
-  addEnemy(new Enemy(50, 20, 40, width/8, height/6, 5, 2.5, ECounter,1));
-  addEnemy(new Enemy(50, 20, 20, 3*width/8, height/6, 3, 1.5, ECounter,2));
+  //addEnemy(new Enemy(50, 20, 10, width/8, height/6, 3, 1.5, ECounter,0));
+  addEnemy(new Enemy(50, 20, 10, width/8, height/6, 5, 2.5, ECounter,1));
+  //addEnemy(new Enemy(50, 20, 20, 3*width/8, height/6, 3, 1.5, ECounter,2));
   addItem(new Items(width/4,height/3,20,.1,1,0,3));
   a = loadImage("../../Background/Background4.jpg");
 }
@@ -241,6 +241,7 @@ void deployBomb(){
 void moveEshots(){
   int counter = 0;
   while (counter < eShotList.size()){
+    eShotList.get(counter).rotateCounter += 1;
     eShotList.get(counter).moveBullet();
     counter += 1;
   }
@@ -275,9 +276,9 @@ void shootBullet(Enemy TheEnemy){
   if (TheEnemy.type == 1){
     if (TheEnemy.timer <= 0){
       int counter = 0;
-      int angle = 0;
+      float angle = 0;
       while (counter < 36){
-        addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(angle)*5,sin(angle)*5,ESCounter,playerList,1));
+        addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(angle),sin(angle),ESCounter,playerList,1));
         counter += 1;
         angle += 10;
         TheEnemy.timer = TheEnemy.copyTimer;

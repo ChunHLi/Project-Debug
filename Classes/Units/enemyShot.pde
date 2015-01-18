@@ -1,6 +1,31 @@
 class enemyShot extends Bullet{
   int eShotCounter;
   float vel;
+  int display;
+  int rotateCounter;
+  
+ enemyShot(float x, float y, float nvelx, float nvely, int newEShotCounter,int displayType){
+   position.x = x;
+   position.y = y;
+   velocity.x = nvelx;
+   velocity.y = nvely;
+   display = displayType;
+   rotateCounter = 0;
+ }
+ 
+  enemyShot(float x, float y, float nvel, int newEShotCounter, ArrayList<Player> whatever,int displayType){
+   position.x = x;
+   position.y = y;
+   display = displayType;
+   eShotCounter = newEShotCounter;
+   if (playerList.size() > 0){
+     calcVXY(whatever.get(0));
+   }
+   else{
+     velocity.x = 10;
+     velocity.y = 10;
+   }
+ }
   
  enemyShot(float x, float y,float nvelx,float nvely, int newEShotCounter, ArrayList<Player> whatever,int enemyType){
     position.x = x;
@@ -49,7 +74,7 @@ class enemyShot extends Bullet{
    if (position.y + velocity.y < height && position.y + velocity.x > 0){
      position.y += velocity.y;
    }
-   if (position.y + velocity.y > height || position.y + velocity.x < 0){
+   if (position.y + velocity.y + 5> height || position.y + velocity.x < 0){
      removeEShot(eShotCounter);
    }
    if (position.x + velocity.x + 5 <= width/2 && position.x + velocity.x > 0){
@@ -74,10 +99,36 @@ class enemyShot extends Bullet{
  }
 
  void display(){
-    stroke(25);
-    fill(67,4,4);
-    ellipse(position.x,position.y,radius*3,radius*3);
-    fill(240,8,8);
-    ellipse(position.x + .5,position.y + .5, radius*2, radius*2);
+   if (display == 0){  
+     stroke(25);
+     fill(67,4,4);
+     ellipse(position.x,position.y,radius*3,radius*3);
+     fill(240,8,8);
+     ellipse(position.x + .5,position.y + .5, radius*2, radius*2);
+   }
+   if (display == 1){
+     strokeWeight(3);
+     stroke(0);
+     fill(47,42,2);
+     ellipse(position.x,position.y,radius*3,radius*3);
+     fill(209,190,16);
+     ellipse(position.x + .5,position.y + .5, radius*2, radius*2);
+   }
+   if (display == 2){
+     strokeWeight(3);
+     stroke(0);
+     fill(67,4,4);
+     rotate(rotateCounter * PI/12);
+     triangle(position.x - 5,position.y + 8.66,position.x,position.y,position.x + 5,position.y + 8.66);
+     fill(240,8,8);
+     rotate(rotateCounter * PI/12);
+     triangle(position.x - 5.5,position.y + 9.52,position.x,position.y,position.x + 5.5,position.y + 9.52);
+   }
+   if (display == 3){
+     strokeWeight(3);
+     stroke(0);
+     fill(0);
+     ellipse(position.x,position.y,radius*2,radius*2);
+   }
  }
 }
