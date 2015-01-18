@@ -63,3 +63,7 @@ static/pseudo-static.
 1/17/15-Shawn Li-
     -Huge setup upon discovery that processing cannot handle the loading of many sprites at once, had to take a lot of time off to make ellipses.
     -Different attack patterns made for different enemies
+
+1/17/15-Oscar Ngan/Shawn Li-
+    -(Oscar) Created Boss constructors, working on sprites
+    -(Shawn) Created display bullets, created attack pattern 1 for stage 1 boss, added other methods but haven't coded them yet.
