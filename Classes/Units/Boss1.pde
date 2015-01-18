@@ -10,11 +10,11 @@ class Boss1 extends Enemy{
     enemySprite = loadImage("../../Sprites/Enemy/Boss/Masaki.png");    
     attacksLeft = 4;
     attackTimer = 2700;
-    velocity.x = 1;
+    velocity.x = 10;
     velocity.y = 0;
     bossTimer = 0;
-    bossCopyTimer = 300;
-    type = 0;
+    bossCopyTimer = 60;
+    type = 3;
   }
   
   void move(){
@@ -25,10 +25,10 @@ class Boss1 extends Enemy{
       position.x += velocity.x;
     }    
     else{
-      if (int(random(2)) == 0){
+      if (int(random(100)) == 0){
         position.x += velocity.x;
       }
-      else{
+      else if (int(random(100)) == 1){
         position.x -= velocity.x;
       }
     }

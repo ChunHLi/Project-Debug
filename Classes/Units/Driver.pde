@@ -502,7 +502,7 @@ void boss1Attack1(){
       int counter = 0;
       float angle = 0;
       while (counter < 180){
-        addEShot(new enemyShot(enemyList.get(0).position.x,enemyList.get(0).position.y,cos(angle)*2,sin(angle)*2,ESCounter,2));
+        addEShot(new enemyShot(enemyList.get(0).position.x,enemyList.get(0).position.y,cos(angle)*4,sin(angle)*4,ESCounter,2));
         counter += 1;
         angle += 2;
         enemyList.get(0).bossTimer = enemyList.get(0).bossCopyTimer;
@@ -513,7 +513,7 @@ void boss1Attack1(){
       float velocityX = 2.3;
       float velocityY = 4.0;
       while (counter < 24){
-        addEShot(new enemyShot(10,height/3,velocityX,velocityY,ESCounter,1));
+        addEShot(new enemyShot(10,height/10,velocityX,velocityY,ESCounter,1));
         counter += 1;
         velocityX -= accelerationX;
         velocityY -= accelerationY*counter;
@@ -524,7 +524,7 @@ void boss1Attack1(){
       velocityX = 2.3;
       velocityY = 4.0;
       while (counter < 24){
-        addEShot(new enemyShot(width/2 - 10,height/3,-1*velocityX,velocityY,ESCounter,1));
+        addEShot(new enemyShot(width/2 - 10,height/10,-1*velocityX,velocityY,ESCounter,1));
         counter += 1;
         velocityX -= accelerationX;
         velocityY -= accelerationY*counter;
@@ -542,9 +542,9 @@ void boss1Attack1(){
     enemyList.get(0).sin += 330;
     if (enemyList.get(0).bossTimer <= 0){
       int counter = 0;
-      while (counter < 11){
-        addEShot(new enemyShot(50 + counter*20,50 + counter*10,0,0,ESCounter,6));
-        addEShot(new enemyShot(width/2 - 50 - counter*20,50 + counter*10,0,0,ESCounter,6));
+      while (counter < 17){
+        addEShot(new enemyShot(50 + counter*25,50 + counter*10,0,0,ESCounter,6));
+        addEShot(new enemyShot(width/2 - 49 - counter*25,50 + counter*10,0,0,ESCounter,6));
         counter += 1;
       }
       addEShot(new enemyShot(50,50,20,10,ESCounter,4));
