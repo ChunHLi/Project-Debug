@@ -3,6 +3,7 @@ class enemyShot extends Bullet{
   float vel;
   int display;
   int rotateCounter;
+  float acceleration = .02;
   
  enemyShot(float x, float y, float nvelx, float nvely, int newEShotCounter,int displayType){
    position.x = x;
@@ -11,6 +12,7 @@ class enemyShot extends Bullet{
    velocity.y = nvely;
    display = displayType;
    rotateCounter = 0;
+   eShotCounter = newEShotCounter;
  }
  
   enemyShot(float x, float y, float nvel, int newEShotCounter, ArrayList<Player> whatever,int displayType){
@@ -61,7 +63,7 @@ class enemyShot extends Bullet{
          else{
            other.power = other.power/2;
          }
-         other.invulnTime = 18000;
+         other.invulnTime = 9000;
          other.position.x = width/4;
          other.position.y = 2*height/3;
        }
@@ -74,7 +76,7 @@ class enemyShot extends Bullet{
    if (position.y + velocity.y < height && position.y + velocity.x > 0){
      position.y += velocity.y;
    }
-   if (position.y + velocity.y + 5> height || position.y + velocity.x < 0){
+   if (position.y + velocity.y + 10> height || position.y + velocity.x < 0){
      removeEShot(eShotCounter);
    }
    if (position.x + velocity.x + 5 <= width/2 && position.x + velocity.x > 0){
@@ -82,6 +84,9 @@ class enemyShot extends Bullet{
    }
    if (position.x + velocity.x + 5> width/2 || position.x + velocity.x < 0){
      removeEShot(eShotCounter);
+   }
+   if (display == 6){
+     velocity.y += acceleration;
    }
  }
    
@@ -118,17 +123,35 @@ class enemyShot extends Bullet{
      strokeWeight(3);
      stroke(0);
      fill(67,4,4);
-     rotate(rotateCounter * PI/12);
      triangle(position.x - 5,position.y + 8.66,position.x,position.y,position.x + 5,position.y + 8.66);
      fill(240,8,8);
-     rotate(rotateCounter * PI/12);
      triangle(position.x - 5.5,position.y + 9.52,position.x,position.y,position.x + 5.5,position.y + 9.52);
    }
    if (display == 3){
      strokeWeight(3);
      stroke(0);
-     fill(0);
-     ellipse(position.x,position.y,radius*2,radius*2);
+     fill(120);
+     triangle(position.x - 10, position.y, position.x,position.y + 10, position.x + 10, position.y);
+     fill(60);
+     triangle(position.x - 5, position.y, position.x, position.y + 5, position.x + 5, position.y);
+   }
+   if (display == 4){
+     strokeWeight(4);
+     stroke(0);
+     fill(255);
+     triangle(position.x - 5, position.y, position.x,position.y - 5, position.x + 10, position.y+10);
+   }
+   if (display == 5){
+     strokeWeight(4);
+     stroke(0);
+     fill(255);
+     triangle(position.x - 10, position.y + 10, position.x,position.y - 5, position.x +5, position.y);
+   }
+   if (display == 6){
+     strokeWeight(2);
+     stroke(0);
+     fill(255);
+     triangle(position.x - 5, position.y -5, position.x,position.y + 10, position.x +5, position.y -5);
    }
  }
 }

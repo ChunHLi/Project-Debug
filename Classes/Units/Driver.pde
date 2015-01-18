@@ -21,12 +21,15 @@ void setup(){
   size(960,720);
   playerList.add(new Player());
   //addEnemy(new Enemy(50, 20, 10, width/8, height/6, 3, 1.5, ECounter,0));
-  addEnemy(new Enemy(50, 20, 10, width/8, height/6, 5, 2.5, ECounter,1));
+  //addEnemy(new Enemy(50, 20, 10, width/8, height/6, 5, 2.5, ECounter,1));
   //addEnemy(new Enemy(50, 20, 20, 3*width/8, height/6, 3, 1.5, ECounter,2));
+  addEnemy(new Boss1());
+  enemyList.get(0).move();
   addItem(new Items(width/4,height/3,20,.1,1,0,3));
   a = loadImage("../../Background/Background4.jpg");
 }
 void draw(){
+  println(enemyList.size());
   if (InterfaceUpdateTimer > 0){
     InterfaceUpdateTimer -= 1;
   }
@@ -34,6 +37,9 @@ void draw(){
     background(0);
     Interface();
     InterfaceUpdateTimer = 0;
+  }
+  if (enemyList.size() > 0){
+    boss1Attack();
   }
   loopBackground();
   playerMove();
@@ -301,6 +307,8 @@ void shootBullet(Enemy TheEnemy){
       TheEnemy.timer -= 1;
     }
   }
+  if (TheEnemy.type == 3){
+  }
 }
 
 void displayEShots(){
@@ -456,3 +464,103 @@ void loopBackground(){
   image(a.get(0,a.height-int(y),a.width,a.height),0,0);
   y += 2;
 }
+
+void boss1Attack(){
+  if (enemyList.get(0).attacksLeft == 4){
+      boss1Attack1();
+    }
+    if (enemyList.get(0).attacksLeft == 3){
+      boss1SpecialAttack1();
+    }
+    if (enemyList.get(0).attacksLeft == 2){
+    }
+    if (enemyList.get(0).attacksLeft == 1){
+    }
+    if (enemyList.get(0).attacksLeft == 0){
+    }
+    nextPart();
+  }
+  
+void nextPart(){
+    if ((enemyList.get(0).HP <= 11) || (enemyList.get(0).attackTimer <= 0)){
+      if (enemyList.get(0).attacksLeft > 0){
+        enemyList.get(0).attacksLeft = enemyList.get(0).attacksLeft - 1;
+        enemyList.get(0).setHP(720);
+        enemyList.get(0).attackTimer = 2700;
+      }
+      else{
+        enemyList.remove(0);
+      }
+    }
+    else{
+      enemyList.get(0).attackTimer -= 1;
+    }
+  }
+  
+void boss1Attack1(){
+    if (enemyList.get(0).bossTimer <= 0){
+      int counter = 0;
+      float angle = 0;
+      while (counter < 180){
+        addEShot(new enemyShot(enemyList.get(0).position.x,enemyList.get(0).position.y,cos(angle)*2,sin(angle)*2,ESCounter,2));
+        counter += 1;
+        angle += 2;
+        enemyList.get(0).bossTimer = enemyList.get(0).bossCopyTimer;
+      }
+      counter = 0;
+      float accelerationX = 0.1;
+      float accelerationY = 0.01;
+      float velocityX = 2.3;
+      float velocityY = 4.0;
+      while (counter < 24){
+        addEShot(new enemyShot(10,height/3,velocityX,velocityY,ESCounter,1));
+        counter += 1;
+        velocityX -= accelerationX;
+        velocityY -= accelerationY*counter;
+      }
+      counter = 0;
+      accelerationX = 0.1;
+      accelerationY = 0.01;
+      velocityX = 2.3;
+      velocityY = 4.0;
+      while (counter < 24){
+        addEShot(new enemyShot(width/2 - 10,height/3,-1*velocityX,velocityY,ESCounter,1));
+        counter += 1;
+        velocityX -= accelerationX;
+        velocityY -= accelerationY*counter;
+      }
+    }
+    else{
+      enemyList.get(0).bossTimer -= 1;
+    }
+  }
+  void boss1SpecialAttack1(){
+    float positionChange = 0 + cos(enemyList.get(0).sin)*60;
+    addEShot(new enemyShot(80 + positionChange, height/20, 0, 5, ESCounter, 3));
+    enemyList.get(0).sin += 330;
+    addEShot(new enemyShot(width/2 - 80 + positionChange, height/20, 0, 5, ESCounter, 3));
+    enemyList.get(0).sin += 330;
+    if (enemyList.get(0).bossTimer <= 0){
+      int counter = 0;
+      while (counter < 11){
+        addEShot(new enemyShot(50 + counter*20,50 + counter*10,0,0,ESCounter,6));
+        addEShot(new enemyShot(width/2 - 50 - counter*20,50 + counter*10,0,0,ESCounter,6));
+        counter += 1;
+      }
+      addEShot(new enemyShot(50,50,20,10,ESCounter,4));
+      addEShot(new enemyShot(width/2 - 50,50,-20,10,ESCounter,5));
+      enemyList.get(0).bossTimer = enemyList.get(0).bossCopyTimer;
+    }
+    else{
+      enemyList.get(0).bossTimer -= 1;
+      
+      
+      
+      
+    }
+  }
+  void attack2(){
+  }
+  void specialAttack2(){
+  }
+  

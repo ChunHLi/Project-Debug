@@ -1,7 +1,10 @@
 class Enemy extends Unit{
-    int Ecounter;
+    int Ecounter; 
+    int attacksLeft = 4; //boss variable
+    int attackTimer = 2700; //boss variable
     PImage enemySprite;
-    int timer, copyTimer, type;
+    int timer, copyTimer, type, bossTimer, bossCopyTimer,bossTimer2, bossCopyTimer2;
+    float sin; //boss variable
     
   Enemy(){
     setHP(50);
@@ -28,8 +31,8 @@ class Enemy extends Unit{
     type = newType;
   }
   
-  void display(){
-    image(enemySprite.get(15,10,30,30),position.x-15,position.y-15);
-  }
+  //void display(){
+  //  image(enemySprite.get(15,10,30,30),position.x-15,position.y-15);
+  //}
 }
   
