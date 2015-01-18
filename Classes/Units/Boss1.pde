@@ -8,7 +8,7 @@ class Boss1 extends Enemy{
     position.x = width/4;
     position.y = height/5;
     enemySprite = loadImage("../../Sprites/Enemy/Boss/Masaki.png");    
-    attacksLeft = 4;
+    attacksLeft = 3;
     attackTimer = 2700;
     velocity.x = 10;
     velocity.y = 0;

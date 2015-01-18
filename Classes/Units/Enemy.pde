@@ -1,6 +1,6 @@
 class Enemy extends Unit{
     int Ecounter; 
-    int attacksLeft = 4; //boss variable
+    int attacksLeft = 3; //boss variable
     int attackTimer = 2700; //boss variable
     PImage enemySprite;
     int timer, copyTimer, type, bossTimer, bossCopyTimer,bossTimer2, bossCopyTimer2;

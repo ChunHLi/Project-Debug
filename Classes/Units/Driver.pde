@@ -466,17 +466,14 @@ void loopBackground(){
 }
 
 void boss1Attack(){
-  if (enemyList.get(0).attacksLeft == 4){
-      boss1Attack1();
-    }
-    if (enemyList.get(0).attacksLeft == 3){
-      boss1SpecialAttack1();
+  if (enemyList.get(0).attacksLeft == 3){
+      boss1Attack();
     }
     if (enemyList.get(0).attacksLeft == 2){
+      boss1SpecialAttack1();
     }
     if (enemyList.get(0).attacksLeft == 1){
-    }
-    if (enemyList.get(0).attacksLeft == 0){
+      boss1SpecialAttack2();
     }
     nextPart();
   }
@@ -555,9 +552,12 @@ void boss1Attack1(){
       enemyList.get(0).bossTimer -= 1;       
     }
   }
-  void attack2(){
-    
+  void boss1SpecialAttack2(){
+    if (enemyList.get(0).bossTimer <= 0){
+      addEShot(new enemyShot(enemyList.get(0).position.x,enemyList.get(0).position.y, 10.0, ESCounter, 7));
+      enemyList.get(0).bossTimer = enemyList.get(0).bossCopyTimer;
+    }
+    else{
+      enemyList.get(0).bossTimer -= 1;
+    }
   }
-  void specialAttack2(){
-  }
-  

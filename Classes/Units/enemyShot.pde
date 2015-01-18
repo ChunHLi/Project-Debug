@@ -3,7 +3,25 @@ class enemyShot extends Bullet{
   float vel;
   int display;
   int rotateCounter;
-  float acceleration = .02;
+  float acceleration = .2;
+  float storedVelx;
+  float storedVely;
+  
+ enemyShot(float x, float y, float nvel, int newEShotCounter, int displayType){
+   position.x = x;
+   position.y = y;
+   vel = nvel;
+   display = displayType;
+   eShotCounter = newEShotCounter;
+   if (playerList.size() > 0){
+     calcVXY(playerList.get(0));
+   }
+   else{
+     velocity.x = 10;
+     velocity.y = 10;
+   }
+ }
+ 
   
  enemyShot(float x, float y, float nvelx, float nvely, int newEShotCounter,int displayType){
    position.x = x;
@@ -28,6 +46,8 @@ class enemyShot extends Bullet{
      velocity.y = 10;
    }
  }
+ 
+ 
   
  enemyShot(float x, float y,float nvelx,float nvely, int newEShotCounter, ArrayList<Player> whatever,int enemyType){
     position.x = x;
@@ -88,6 +108,22 @@ class enemyShot extends Bullet{
    if (display == 6){
      velocity.y += acceleration;
    }
+   if (display == 7){
+     velocity.x -= storedVelx/90;
+     velocity.y -= storedVely/90;
+     if (((velocity.x < .2 )&&(velocity.x > -0.2)) && ((velocity.y < .2) && (velocity.y > -.2))){
+       float positionX = eShotList.get(eShotCounter).position.x;
+       float positionY = eShotList.get(eShotCounter).position.y;
+       removeEShot(eShotCounter);
+       int counter = 0;
+       float angle = 0;
+       while (counter < 180){
+         addEShot(new enemyShot(positionX,positionY,cos(angle)*4,sin(angle)*4,ESCounter,2));
+         counter += 1;
+         angle += 4.0;
+       }
+     }
+   }
  }
    
  void calcVXY(Player other){
@@ -101,6 +137,8 @@ class enemyShot extends Bullet{
    angle = atan(dx / dy);
    velocity.x = above*(vel * sin(angle));
    velocity.y = above*(vel * cos(angle));
+   storedVelx = velocity.x;
+   storedVely = velocity.y;
  }
 
  void display(){
@@ -152,6 +190,11 @@ class enemyShot extends Bullet{
      stroke(0);
      fill(255);
      triangle(position.x - 8, position.y -8, position.x,position.y + 10, position.x +8, position.y -7);
+   }
+   if (display == 7){
+     noStroke();
+     fill(0);
+     ellipse(position.x + 10, position.y + 10, radius * 4, radius * 4);
    }
  }
 }
