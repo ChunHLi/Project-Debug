@@ -82,18 +82,18 @@ void draw(){
     wave3start = true;
     waveCounter += 1;
   }
-  if (wave3start = true){
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy(); 
-    //wave3start = false;
+  if (wave3start == true){
+    addEnemy(new Enemy(100, 20, 10, 10, height/12, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 30, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 60, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 90, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 120, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 150, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 180, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 210, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 240, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 270, -1.5, 0, ECounter,2,0)); 
+    wave3start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 2){
     //wave4start = true;
@@ -374,11 +374,9 @@ void shootBullet(Enemy TheEnemy){
   }
   if (TheEnemy.type == 2){
     if (TheEnemy.timer <= 0){
-      addEShot(new enemyShot(TheEnemy.position.x - 40,TheEnemy.position.y,5,0,ESCounter,playerList,2));
-      addEShot(new enemyShot(TheEnemy.position.x - 20,TheEnemy.position.y + 5,5,0,ESCounter,playerList,2));
-      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y + 10,5,0,ESCounter,playerList,2));
-      addEShot(new enemyShot(TheEnemy.position.x + 20,TheEnemy.position.y + 5,5,0,ESCounter,playerList,2));
-      addEShot(new enemyShot(TheEnemy.position.x + 40,TheEnemy.position.y,5,0,ESCounter,playerList,2));
+      addEShot(new enemyShot(TheEnemy.position.x - 20,TheEnemy.position.y + 5,2,0,ESCounter,playerList,2));
+      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y + 10,2,0,ESCounter,playerList,2));
+      addEShot(new enemyShot(TheEnemy.position.x + 20,TheEnemy.position.y + 5,2,0,ESCounter,playerList,2));
       TheEnemy.timer = TheEnemy.copyTimer;
     }
     else{

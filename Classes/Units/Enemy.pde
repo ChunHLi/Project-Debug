@@ -51,6 +51,12 @@ class Enemy extends Unit{
         position.x -= velocity.x; 
       }
     }
+    if (type == 2){
+      if ((position.x < 10) || (position.x > width/2 - 10)){
+        velocity.x = velocity.x*-1;
+      }
+      position.x += velocity.x;
+    }
   }
   
   //void display(){
