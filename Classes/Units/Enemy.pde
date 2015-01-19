@@ -59,8 +59,22 @@ class Enemy extends Unit{
     }
   }
   
-  //void display(){
-  //  image(enemySprite.get(15,10,30,30),position.x-15,position.y-15);
-  //}
+  void display(){
+    if (type == 0){
+      image(enemySprite.get(274,141,22,22),position.x-11,position.y-11);
+    }
+    if (type == 1){
+      image(enemySprite.get(337,139,22,26),position.x-11,position.y-13);
+    }
+    if (type == 2){
+      image(enemySprite.get(369,172,26,22),position.x-13,position.y-11);
+    }
+    if (type == 3){
+      image(enemySprite.get(44,230,32,32),position.x-16,position.y-16);
+    }
+    if (type == 4){
+      image(enemySprite.get(336,235,25,25),position.x-13,position.y-13);
+    }
+  }
 }
   
