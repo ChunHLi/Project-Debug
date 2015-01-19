@@ -24,8 +24,8 @@ class Enemy extends Unit{
   
   Enemy(int nHP, int nRadius, int nTimer, float positionX, float positionY, float velocityX, float velocityY, int ECounter, int newType,int dropItem){
     Ecounter = ECounter;
-    setHP(50);
-    setRadius(10);
+    setHP(nHP);
+    setRadius(nRadius);
     position.x = positionX;
     position.y = positionY;
     velocity.x = velocityX;
@@ -38,7 +38,7 @@ class Enemy extends Unit{
   }
   
   void move(){
-    if (type == 0){
+    if (type == 0 || type == 4){
       if (position.y < height/5){
         position.y += velocity.y;
       }
@@ -56,6 +56,11 @@ class Enemy extends Unit{
         velocity.x = velocity.x*-1;
       }
       position.x += velocity.x;
+    }
+    if (type == 3){
+      if (position.y < height/2){
+        position.y += velocity.y;
+      }
     }
   }
   

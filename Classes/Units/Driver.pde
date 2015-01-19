@@ -62,11 +62,11 @@ void draw(){
     }
   }
   if (wave1start == true){
-    addEnemy(new Enemy(50, 20, 20, width/12, height/360, 0, 1.5, ECounter,0,2));
-    addEnemy(new Enemy(50, 20, 20, width/6, height/360,0,1.5,ECounter,0,0));
-    addEnemy(new Enemy(50, 20, 20, width/4, height/360,0,1.5,ECounter,0,2));
-    addEnemy(new Enemy(50, 20, 20, width/3, height/360,0,1.5,ECounter,0,0));
-    addEnemy(new Enemy(50, 20, 20, 5*width/12, height/360,0,1.5,ECounter,0,2));
+    addEnemy(new Enemy(50, 20, 10, width/12, height/360, 0, 1.5, ECounter,0,2));
+    addEnemy(new Enemy(50, 20, 10, width/6, height/360,0,1.5,ECounter,0,0));
+    addEnemy(new Enemy(50, 20, 10, width/4, height/360,0,1.5,ECounter,0,2));
+    addEnemy(new Enemy(50, 20, 10, width/3, height/360,0,1.5,ECounter,0,0));
+    addEnemy(new Enemy(50, 20, 10, 5*width/12, height/360,0,1.5,ECounter,0,2));
     wave1start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 0){
@@ -83,37 +83,35 @@ void draw(){
     waveCounter += 1;
   }
   if (wave3start == true){
-    addEnemy(new Enemy(100, 20, 10, 10, height/12, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 30, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 60, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 90, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 120, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 150, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 180, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 210, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, 10, height/12 + 240, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(100, 20, 10, width/2 - 10, height/12 + 270, -1.5, 0, ECounter,2,0)); 
+    addEnemy(new Enemy(30, 20, 30, 10, height/12, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 30, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, 10, height/12 + 60, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 90, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, 10, height/12 + 120, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 150, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, 10, height/12 + 180, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 210, -1.5, 0, ECounter,2,0)); 
     wave3start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 2){
-    //wave4start = true;
-    //counter += 1;
+    wave4start = true;
+    waveCounter += 1;
   }
-  if (wave4start = true){
-    //addEnemy();
-    //wave4start = false;
+  if (wave4start == true){
+    addEnemy(new Enemy(1000,20,0, width/4, height/12, 0, 1.5, ECounter,3,4));
+    wave4start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 3){
-    //wave5start = true;
-    //counter += 1;
+   wave5start = true;
+   waveCounter += 1;
   }
   if (wave5start == true){
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //addEnemy();
-    //wave5start = false;
+    addEnemy(new Enemy(100, 20, 10, width/12, height/360, 0, 1.5, ECounter,0,2));
+    addEnemy(new Enemy(100, 20, 10, width/6, height/360,0,1.5,ECounter,0,0));
+    addEnemy(new Enemy(500, 40, 100, width/4, height/360,0,1.5,ECounter,4,4));
+    addEnemy(new Enemy(100, 20, 10, width/3, height/360,0,1.5,ECounter,0,0));
+    addEnemy(new Enemy(100, 20, 10, 5*width/12, height/360,0,1.5,ECounter,0,2));
+    wave5start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 4){
     //bossStart = true;
@@ -355,7 +353,7 @@ void displayPShot(){
 void shootBullet(Enemy TheEnemy){
   if (TheEnemy.type == 0){
     if (TheEnemy.timer <= 0){
-      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,5,0,ESCounter, playerList,0));
+      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,5,0,ESCounter, playerList,0,0));
       TheEnemy.timer = TheEnemy.copyTimer;
     }
     else{
@@ -364,7 +362,7 @@ void shootBullet(Enemy TheEnemy){
   }
   if (TheEnemy.type == 1){
     if (TheEnemy.timer <= 0){
-        addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(Type1Angle),sin(Type1Angle),ESCounter,playerList,1));
+        addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(Type1Angle),sin(Type1Angle),ESCounter,playerList,1,1));
         Type1Angle += 10;
         TheEnemy.timer = TheEnemy.copyTimer;
       }
@@ -374,9 +372,8 @@ void shootBullet(Enemy TheEnemy){
   }
   if (TheEnemy.type == 2){
     if (TheEnemy.timer <= 0){
-      addEShot(new enemyShot(TheEnemy.position.x - 20,TheEnemy.position.y + 5,2,0,ESCounter,playerList,2));
-      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y + 10,2,0,ESCounter,playerList,2));
-      addEShot(new enemyShot(TheEnemy.position.x + 20,TheEnemy.position.y + 5,2,0,ESCounter,playerList,2));
+      addEShot(new enemyShot(TheEnemy.position.x - 20,TheEnemy.position.y + 5,2,0,ESCounter,playerList,2,2));
+      addEShot(new enemyShot(TheEnemy.position.x + 20,TheEnemy.position.y + 5,2,0,ESCounter,playerList,2,2));
       TheEnemy.timer = TheEnemy.copyTimer;
     }
     else{
@@ -384,6 +381,20 @@ void shootBullet(Enemy TheEnemy){
     }
   }
   if (TheEnemy.type == 3){
+    if (TheEnemy.timer <= 0){
+      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(Type1Angle),sin(Type1Angle),ESCounter,playerList,1,3));
+      Type1Angle += .1;
+      TheEnemy.timer = TheEnemy.copyTimer;
+    }
+  }
+  if (TheEnemy.type == 4){
+    if (TheEnemy.timer <= 0){
+      addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y, 10.0, ESCounter, 7));
+      TheEnemy.timer = TheEnemy.copyTimer;
+    }
+    else{
+      TheEnemy.timer -= 1;
+    }
   }
 }
 
@@ -419,16 +430,16 @@ void displayItem(){
        counter2 += 1;
        if (enemyList.get(counter).HP <= 0){
          if (enemyList.get(counter).doesItDropItem == 0){
-           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,0,ICounter,3));
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,50,.1,0,ICounter,3));
          }
          if (enemyList.get(counter).doesItDropItem == 1){
-           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,1,ICounter,3));
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,50,.1,1,ICounter,3));
          }
          if (enemyList.get(counter).doesItDropItem == 2){
-           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,2,ICounter,3));
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,50,.1,2,ICounter,3));
          }
-         if (enemyList.get(counter).doesItDropItem == 3){
-           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,3,ICounter,3));
+         if (enemyList.get(counter).doesItDropItem == 4){
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,50,.1,3,ICounter,3));
          }
          removeEnemy(enemyList.get(counter).Ecounter);
          break;

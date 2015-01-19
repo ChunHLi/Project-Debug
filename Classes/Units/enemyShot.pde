@@ -49,7 +49,8 @@ class enemyShot extends Bullet{
  
  
   
- enemyShot(float x, float y,float nvelx,float nvely, int newEShotCounter, ArrayList<Player> whatever,int enemyType){
+ enemyShot(float x, float y,float nvelx,float nvely, int newEShotCounter, ArrayList<Player> whatever,int enemyType,int displayType){
+    display = displayType;
     position.x = x;
     position.y=y;
     vel = nvelx;
