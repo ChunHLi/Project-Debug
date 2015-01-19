@@ -61,6 +61,8 @@ int iCounter;
      if (type==4){
       other.setBombs(other.Bombs + 1);
      }
+     itemEffect.play();
+     itemEffect.rewind();
      removeItem(iCounter);
    }
  }

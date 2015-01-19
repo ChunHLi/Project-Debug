@@ -1,3 +1,12 @@
+import ddf.minim.*;
+AudioPlayer backgroundMusic;
+AudioPlayer shootEffect;
+AudioPlayer bombEffect;
+AudioPlayer itemEffect;
+AudioPlayer warning;
+AudioPlayer win;
+AudioPlayer lose;
+Minim minim;
 ArrayList<Player> playerList = new ArrayList<Player>(0);
 ArrayList<playerShot> pShotList = new ArrayList<playerShot>(0);
 ArrayList<Enemy> enemyList = new ArrayList<Enemy>(0);
@@ -14,15 +23,21 @@ float y = 1;
 boolean[] keys;
 int timer = 0;
 int InterfaceUpdateTimer = 59;
-boolean wave1start = true;
+boolean wave1start = false;
 boolean wave2start = false;
 boolean wave3start = false;
 boolean wave4start = false;
 boolean wave5start = false;
 boolean bossStart = false;
 boolean bossBattle = false;
-int waveCounter = 0;
+int waveCounter = -1;
+int introDelay = 240;
 float Type1Angle = 0;
+int MusicNumber;
+int soundEffectCounter = 480;
+int waveDelay = 240;
+int winloseDelay = 120;
+int autoCloseDelay = 120;
 
 
 
@@ -37,8 +52,51 @@ void setup(){
   //enemyList.get(0).move();
   addItem(new Items(width/4,height/3,20,.1,1,0,3));
   a = loadImage("../../Background/Background4.jpg");
+  MusicNumber = int(random(6));
+  minim = new Minim(this);
+  if (MusicNumber == 0){
+    backgroundMusic = minim.loadFile("../../Sounds/airman.mp3", 2048);
+  }
+  if (MusicNumber == 1){
+    backgroundMusic = minim.loadFile("../../Sounds/mahoukaOP.mp3", 2048);
+  }
+  if (MusicNumber == 2){
+    backgroundMusic = minim.loadFile("../../Sounds/noGameNoLifeOP.mp3", 2048);
+  }
+  if (MusicNumber == 3){
+    backgroundMusic = minim.loadFile("../../Sounds/noragamiOP.mp3", 2048);
+  }
+  if (MusicNumber == 4){
+    backgroundMusic = minim.loadFile("../../Sounds/reconguistaOP.mp3", 2048);
+  }
+  if (MusicNumber == 5){
+    backgroundMusic = minim.loadFile("../../Sounds/trinitySevenOP.mp3", 2048);
+  }
+  if (MusicNumber == 2 || MusicNumber == 3){
+    //backgroundMusic.setGain(0);
+    backgroundMusic.play();
+  }
+  else{
+    backgroundMusic.setGain(-10);
+    backgroundMusic.play();
+  }
+  shootEffect = minim.loadFile("../../Sounds/playerLaser.mp3",2048);
+  shootEffect.setGain(-25);
+  bombEffect = minim.loadFile("../../Sounds/bomb.wav",2048);
+  bombEffect.setGain(-10);
+  itemEffect = minim.loadFile("../../Sounds/item.wav",2048);
+  itemEffect.setGain(-15);
+  warning = minim.loadFile("../../Sounds/warning.wav",2048);
+  win = minim.loadFile("../../Sounds/win.wav",2048);
+  lose = minim.loadFile("../../Sounds/lose.wav",2048);
 }
 void draw(){
+  if (backgroundMusic.isPlaying()){
+  }
+  else{
+    backgroundMusic.rewind();
+    backgroundMusic.play();
+  }
   if (InterfaceUpdateTimer > 0){
     InterfaceUpdateTimer -= 1;
   }
@@ -62,69 +120,165 @@ void draw(){
       playerList.get(0).invulnTime = 0;
     }
   }
+  if (introDelay > 0){
+    introDelay -= 1;  
+  }
+  if (introDelay == 0){
+    wave1start = true;
+    waveCounter += 1;
+    introDelay -= 1;
+  }
+  
   if (wave1start == true){
+    background(255);
     addEnemy(new Enemy(50, 20, 10, width/12, height/360, 0, 1.5, ECounter,0,2));
     addEnemy(new Enemy(50, 20, 10, width/6, height/360,0,1.5,ECounter,0,0));
     addEnemy(new Enemy(50, 20, 10, width/4, height/360,0,1.5,ECounter,0,2));
     addEnemy(new Enemy(50, 20, 10, width/3, height/360,0,1.5,ECounter,0,0));
     addEnemy(new Enemy(50, 20, 10, 5*width/12, height/360,0,1.5,ECounter,0,2));
+    background(255);
     wave1start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 0){
-    wave2start = true;
-    waveCounter += 1;
+    if (waveDelay == 0){
+      wave2start = true;
+      waveCounter += 1;
+      bombEffect.play();
+      bombEffect.rewind();
+      waveDelay = 240;
+    }
+    else{
+      waveDelay -= 1;
+    }
   }
   if (wave2start == true){
-    addEnemy(new Enemy(100, 20, 2, 0, height/3, 1.5, 0, ECounter,1,0));
-    addEnemy(new Enemy(100, 20, 2, width/2 - 10, height/3, 1.5, 0, ECounter,1,0));
+    background(255);
+    addEnemy(new Enemy(100, 20, 1, 0, height/3, 1.5, 0, ECounter,1,0));
+    addEnemy(new Enemy(100, 20, 1, width/2 - 10, height/3, 1.5, 0, ECounter,1,0));
+    background(255);
     wave2start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 1){
-    wave3start = true;
-    waveCounter += 1;
+    if (waveDelay == 0){
+      wave3start = true;
+      waveCounter += 1;
+      bombEffect.play();
+      bombEffect.rewind();
+      waveDelay = 240;
+    }
+    else{
+      waveDelay -= 1;
+    }
   }
   if (wave3start == true){
-    addEnemy(new Enemy(30, 20, 30, 10, height/12, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 30, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, 10, height/12 + 60, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 90, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, 10, height/12 + 120, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 150, -1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, 10, height/12 + 180, 1.5, 0, ECounter,2,0));
-    addEnemy(new Enemy(30, 20, 30, width/2 - 10, height/12 + 210, -1.5, 0, ECounter,2,0)); 
+    background(255);
+    addEnemy(new Enemy(50, 20, 30, 10, height/12, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, width/2 - 10, height/12 + 30, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, 10, height/12 + 60, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, width/2 - 10, height/12 + 90, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, 10, height/12 + 120, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, width/2 - 10, height/12 + 150, -1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, 10, height/12 + 180, 1.5, 0, ECounter,2,0));
+    addEnemy(new Enemy(50, 20, 30, width/2 - 10, height/12 + 210, -1.5, 0, ECounter,2,0)); 
+    background(255);
     wave3start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 2){
-    wave4start = true;
-    waveCounter += 1;
+    if (waveDelay == 0){
+      wave4start = true;
+      waveCounter += 1;
+      bombEffect.play();
+      bombEffect.rewind();
+      waveDelay = 240;
+    }
+    else{
+      waveDelay -= 1;
+    }
   }
   if (wave4start == true){
+    background(255);
     addEnemy(new Enemy(1000,20,0, width/4, height/12, 0, 1.5, ECounter,3,4));
+    background(255);
     wave4start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 3){
-   wave5start = true;
-   waveCounter += 1;
+    if (waveDelay == 0){
+      wave5start = true;
+      waveCounter += 1;
+      bombEffect.play();
+      bombEffect.rewind();
+      waveDelay = 240;
+    }
+    else{
+      waveDelay -= 1;
+    }
   }
   if (wave5start == true){
+    background(255);
     addEnemy(new Enemy(100, 20, 10, width/12, height/360, 0, 1.5, ECounter,0,2));
     addEnemy(new Enemy(100, 20, 10, width/6, height/360,0,1.5,ECounter,0,0));
-    addEnemy(new Enemy(500, 40, 100, width/4, height/360,0,1.5,ECounter,4,4));
+    addEnemy(new Enemy(500, 40, 100, width/4, height/360,0,1.5,ECounter,4,1));
     addEnemy(new Enemy(100, 20, 10, width/3, height/360,0,1.5,ECounter,0,0));
     addEnemy(new Enemy(100, 20, 10, 5*width/12, height/360,0,1.5,ECounter,0,2));
+    background(255);
     wave5start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 4){
-    bossStart = true;
-    waveCounter += 1;
+    if (waveDelay == 0){
+      bossStart = true;
+      waveCounter += 1;
+      bombEffect.play();
+      bombEffect.rewind();
+      waveDelay = 240;
+    }
+    else{
+      waveDelay -= 1;
+    }
   }
-  if (bossStart == true){
+  if (bossStart == true && soundEffectCounter > 0){
+    if (soundEffectCounter % 60 == 0){
+      warning.play();
+      warning.rewind();
+    }
+    soundEffectCounter -= 1;
+  }
+  if (bossStart == true && soundEffectCounter == 0){
+    background(150,0,0);
     addEnemy(new Boss1());
+    background(150,0,0);
     bossStart = false;
     bossBattle = true;
   }
   if (bossBattle == true){
     boss1Attack();
+  }
+  if (bossBattle == true && enemyList.size() == 0){
+    if (winloseDelay == 0){
+      win.play();
+      if (autoCloseDelay == 0){
+        exit();
+      }
+      else{
+        autoCloseDelay -= 1;
+      }
+    }
+    else{
+      winloseDelay -= 1;
+    }  
+  }
+  if (playerList.size() == 0){
+    if (winloseDelay == 0){
+      lose.play();
+      if (autoCloseDelay == 0){
+        exit();
+      }
+      else{
+        autoCloseDelay -= 1;
+      }
+    }
+    else{
+      winloseDelay -= 1;
+    }  
   }
 }
   
@@ -274,6 +428,8 @@ void playerShoot(){
         addPShot(new playerShot(playerList.get(0).position.x + 5, playerList.get(0).position.y - 10,10,PSCounter));
         addPShot(new playerShot(playerList.get(0).position.x + 15, playerList.get(0).position.y,10,PSCounter));
         timer = 0;
+        shootEffect.rewind();
+        shootEffect.play();
       }
     }
     else if (playerList.get(0).power > 60){
@@ -283,6 +439,8 @@ void playerShoot(){
         addPShot(new playerShot(playerList.get(0).position.x + 5, playerList.get(0).position.y - 10,10,PSCounter));
         addPShot(new playerShot(playerList.get(0).position.x + 15, playerList.get(0).position.y,10,PSCounter));
         timer = 0;
+        shootEffect.rewind();
+        shootEffect.play();
       }
     }
     else if (playerList.get(0).power > 40){
@@ -291,6 +449,8 @@ void playerShoot(){
         addPShot(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y - 10,10,PSCounter));
         addPShot(new playerShot(playerList.get(0).position.x + 10, playerList.get(0).position.y,10,PSCounter));
         timer = 0;
+        shootEffect.rewind();
+        shootEffect.play();
       }
     }
     else if (playerList.get(0).power > 20){
@@ -298,12 +458,16 @@ void playerShoot(){
         addPShot(new playerShot(playerList.get(0).position.x - 5, playerList.get(0).position.y,10,PSCounter));
         addPShot(new playerShot(playerList.get(0).position.x + 5, playerList.get(0).position.y,10,PSCounter));
         timer = 0;
+        shootEffect.rewind();
+        shootEffect.play();
       }
     }
     else if (playerList.get(0).power >= 0){
       if ((25 - timer) <= playerList.get(0).power){
         addPShot(new playerShot(playerList.get(0).position.x, playerList.get(0).position.y,10,PSCounter));
         timer = 0;
+        shootEffect.rewind();
+        shootEffect.play();
       }
     }
   }
@@ -388,7 +552,7 @@ void shootBullet(Enemy TheEnemy){
   if (TheEnemy.type == 3){
     if (TheEnemy.timer <= 0){
       addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(Type1Angle),sin(Type1Angle),ESCounter,playerList,1,3));
-      Type1Angle += .1;
+      Type1Angle += .5;
       TheEnemy.timer = TheEnemy.copyTimer;
     }
   }
@@ -479,7 +643,6 @@ void checkBulletPlayerCollision(){
        }
      }
      counter += 1;
-     
    }
 }
 
@@ -593,6 +756,9 @@ void nextPart(){
         addItem(new Items(playerList.get(0).position.x,playerList.get(0).position.y, 100, .1, 0, ICounter, 3));
         addItem(new Items(playerList.get(0).position.x + 50,playerList.get(0).position.y, 100, .1, 2, ICounter, 3));
         addItem(new Items(playerList.get(0).position.x + 100,playerList.get(0).position.y, 100, .1, 0, ICounter, 3));
+        bombEffect.play();
+        bombEffect.rewind();
+        background(255);
       }
       if (enemyList.get(0).attacksLeft == 0){
         enemyList.remove(0);
@@ -649,8 +815,8 @@ void boss1Attack1(){
     if (enemyList.get(0).bossTimer <= 0){
       int counter = 0;
       while (counter < 15){
-        addEShot(new enemyShot(50 + counter*26,50 + counter*10,0,0.5,ESCounter,6));
-        addEShot(new enemyShot(width/2 - 49 - counter*26,50 + counter*10,0,0.5,ESCounter,6));
+        addEShot(new enemyShot(50 + counter*26,50 + counter*10,0,0,ESCounter,6));
+        addEShot(new enemyShot(width/2 - 49 - counter*26,50 + counter*10,0,0,ESCounter,6));
         counter += 1;
       }
       addEShot(new enemyShot(50,50,20,10,ESCounter,4));
