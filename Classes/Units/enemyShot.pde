@@ -83,7 +83,7 @@ class enemyShot extends Bullet{
          else{
            other.power = other.power/2;
          }
-         other.invulnTime = 9000;
+         other.invulnTime = 45000;
          other.position.x = width/4;
          other.position.y = 2*height/3;
        }
@@ -96,7 +96,7 @@ class enemyShot extends Bullet{
    if (position.y + velocity.y < height && position.y + velocity.x > 0){
      position.y += velocity.y;
    }
-   if (position.y + velocity.y + 10> height || position.y + velocity.x < 0){
+   if (position.y + 10 > height || position.y + velocity.x < 0){
      removeEShot(eShotCounter);
    }
    if (position.x + velocity.x + 5 <= width/2 && position.x + velocity.x > 0){

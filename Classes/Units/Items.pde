@@ -18,6 +18,18 @@ int iCounter;
      setTermVel(3);
   }
   
+  Items(int type){
+    position.x = width/4;
+    position.y = height/3;
+    setRadius(20);
+    setGravity(.1);
+    setType(type);
+    itemSprite = loadImage("../../Sprites/Item/ItemSprites.png");
+    iCounter = 0;
+    velocity.y = -5;
+    setTermVel(3);
+  }
+  
   Items(float positionX, float positionY,int newRad, float newGrav, int type, int ICounter,float newTVel){
     itemSprite = loadImage("../../Sprites/Item/ItemSprites.png");
     position.x = positionX;

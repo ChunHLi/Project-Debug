@@ -12,19 +12,20 @@ class Player extends Unit{
     setBCount(0);
     setScore(0);
     setRadius(5);
-    setPower(80);
+    setPower(0);
     setMultiplier(1);
     position.x = width/4;
     position.y = 2*height/3;
     velocity.x = 6;
     velocity.y = 6;
-    keys = new boolean[6];
+    keys = new boolean[7];
     keys[0] = false;
     keys[1] = false;
     keys[2] = false;
     keys[3] = false;
     keys[4] = false;
     keys[5] = false;
+    keys[6] = false;
     playerSprite = loadImage("../../Sprites/Player/Tohka/Base_Tohka.png");
     invulnTime = 1800;
   }

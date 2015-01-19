@@ -14,6 +14,15 @@ float y = 1;
 boolean[] keys;
 int timer = 0;
 int InterfaceUpdateTimer = 59;
+boolean wave1start = true;
+boolean wave2start = false;
+boolean wave3start = false;
+boolean wave4start = false;
+boolean wave5start = false;
+boolean bossStart = false;
+int waveCounter = 0;
+float Type1Angle = 0;
+
 
 
 void setup(){
@@ -23,13 +32,12 @@ void setup(){
   //addEnemy(new Enemy(50, 20, 10, width/8, height/6, 3, 1.5, ECounter,0));
   //addEnemy(new Enemy(50, 20, 10, width/8, height/6, 5, 2.5, ECounter,1));
   //addEnemy(new Enemy(50, 20, 20, 3*width/8, height/6, 3, 1.5, ECounter,2));
-  addEnemy(new Boss1());
-  enemyList.get(0).move();
+  //addEnemy(new Boss1());
+  //enemyList.get(0).move();
   addItem(new Items(width/4,height/3,20,.1,1,0,3));
   a = loadImage("../../Background/Background4.jpg");
 }
 void draw(){
-  println(enemyList.size());
   if (InterfaceUpdateTimer > 0){
     InterfaceUpdateTimer -= 1;
   }
@@ -37,9 +45,6 @@ void draw(){
     background(0);
     Interface();
     InterfaceUpdateTimer = 0;
-  }
-  if (enemyList.size() > 0){
-    boss1Attack();
   }
   loopBackground();
   playerMove();
@@ -54,17 +59,74 @@ void draw(){
   if (playerList.size() > 0){
     if (eShotList.size() == 0){
       playerList.get(0).invulnTime = 0;
-    }  
+    }
   }
-  println(eShotList.size());
+  if (wave1start == true){
+    addEnemy(new Enemy(50, 20, 20, width/12, height/360, 0, 1.5, ECounter,0,2));
+    addEnemy(new Enemy(50, 20, 20, width/6, height/360,0,1.5,ECounter,0,0));
+    addEnemy(new Enemy(50, 20, 20, width/4, height/360,0,1.5,ECounter,0,2));
+    addEnemy(new Enemy(50, 20, 20, width/3, height/360,0,1.5,ECounter,0,0));
+    addEnemy(new Enemy(50, 20, 20, 5*width/12, height/360,0,1.5,ECounter,0,2));
+    wave1start = false;
+  }
+  if (enemyList.size() == 0 && waveCounter == 0){
+    wave2start = true;
+    waveCounter += 1;
+  }
+  if (wave2start == true){
+    addEnemy(new Enemy(100, 20, 2, 0, height/3, 1.5, 0, ECounter,1,0));
+    addEnemy(new Enemy(100, 20, 2, width/2 - 10, height/3, 1.5, 0, ECounter,1,0));
+    wave2start = false;
+  }
+  if (enemyList.size() == 0 && waveCounter == 1){
+    wave3start = true;
+    waveCounter += 1;
+  }
+  if (wave3start = true){
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy(); 
+    //wave3start = false;
+  }
+  if (enemyList.size() == 0 && waveCounter == 2){
+    //wave4start = true;
+    //counter += 1;
+  }
+  if (wave4start = true){
+    //addEnemy();
+    //wave4start = false;
+  }
+  if (enemyList.size() == 0 && waveCounter == 3){
+    //wave5start = true;
+    //counter += 1;
+  }
+  if (wave5start == true){
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //addEnemy();
+    //wave5start = false;
+  }
+  if (enemyList.size() == 0 && waveCounter == 4){
+    //bossStart = true;
+    //counter += 1;
+  }
+  if (bossStart == true){
+    //addEnemy();
+    //bossStart = false;
+  }
 }
+  
 
 void keyPressed(){
-    //if (key == 'x'){
-    //  playerShot newPShot = new playerShot(playerList.get(0).position.x - playerList.get(0).velocity.x, playerList.get(0).position.y - playerList.get(0).velocity.y*3,playerList.get(0).velocity.y);
-    //  pShotList.add(newPShot);
-    //  counter = 0;
-    //}
   
   if (key == CODED){
     if (keyCode == UP){
@@ -80,11 +142,14 @@ void keyPressed(){
       keys[3] = true;
     }
   }
-  if (key == 'c'){
+  if (key == 'z'){
     keys[5] = true;
   }
-  if (key == 'z'){
+  if (key == 'x'){
     keys[4] = true;
+  }
+  if (key == 'c'){
+    keys[6] = true;
   }
 }
 
@@ -103,11 +168,14 @@ void keyReleased(){
         keys[3] = false;
       }
   }
-  if (key == 'c'){
+  if (key == 'z'){
     keys[5] = false;
   }
-  if (key == 'z'){
+  if (key == 'x'){
     keys[4] = false;
+  }
+  if (key == 'c'){
+    keys[6] = false;
   }
 }
 
@@ -239,6 +307,21 @@ void playerShoot(){
   if (timer < 25){
     timer += 1;
   }
+  if (keys[6] && timer >= 25 && playerList.get(0).Bombs > 0){
+    int counter = 0;
+    while (counter < enemyList.size()){
+      enemyList.get(counter).HP -= 480;
+      counter += 1;
+      playerList.get(0).Score += 1000;
+    }
+    while (eShotList.size() > 0){
+      removeEShot(0);
+      playerList.get(0).Score += 100;
+    }
+    timer = 0;
+    playerList.get(0).Bombs -= 1;
+    background(255);
+  }
 }
 
 void deployBomb(){
@@ -281,15 +364,10 @@ void shootBullet(Enemy TheEnemy){
   }
   if (TheEnemy.type == 1){
     if (TheEnemy.timer <= 0){
-      int counter = 0;
-      float angle = 0;
-      while (counter < 36){
-        addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(angle),sin(angle),ESCounter,playerList,1));
-        counter += 1;
-        angle += 10;
+        addEShot(new enemyShot(TheEnemy.position.x,TheEnemy.position.y,cos(Type1Angle),sin(Type1Angle),ESCounter,playerList,1));
+        Type1Angle += 10;
         TheEnemy.timer = TheEnemy.copyTimer;
       }
-    }
     else{
       TheEnemy.timer -= 1;
     }
@@ -342,6 +420,18 @@ void displayItem(){
        pShotList.get(counter2).checkBoundaryCollision(enemyList.get(counter),pShotList);
        counter2 += 1;
        if (enemyList.get(counter).HP <= 0){
+         if (enemyList.get(counter).doesItDropItem == 0){
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,0,ICounter,3));
+         }
+         if (enemyList.get(counter).doesItDropItem == 1){
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,1,ICounter,3));
+         }
+         if (enemyList.get(counter).doesItDropItem == 2){
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,2,ICounter,3));
+         }
+         if (enemyList.get(counter).doesItDropItem == 3){
+           addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,20,.1,3,ICounter,3));
+         }
          removeEnemy(enemyList.get(counter).Ecounter);
          break;
        }
@@ -481,11 +571,11 @@ void boss1Attack(){
 void nextPart(){
     if ((enemyList.get(0).HP <= 11) || (enemyList.get(0).attackTimer <= 0)){
       if (enemyList.get(0).attacksLeft > 0){
-        enemyList.get(0).attacksLeft = enemyList.get(0).attacksLeft - 1;
+        enemyList.get(0).attacksLeft -= 1;
         enemyList.get(0).setHP(720);
         enemyList.get(0).attackTimer = 2700;
       }
-      else{
+      if (enemyList.get(0).attacksLeft == 0){
         enemyList.remove(0);
       }
     }
@@ -560,4 +650,5 @@ void boss1Attack1(){
     else{
       enemyList.get(0).bossTimer -= 1;
     }
+    addEShot(new enemyShot(enemyList.get(0).position.x,enemyList.get(0).position.y, 8.0, ESCounter, 3));
   }
