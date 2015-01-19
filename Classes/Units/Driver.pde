@@ -588,6 +588,11 @@ void nextPart(){
         enemyList.get(0).attacksLeft -= 1;
         enemyList.get(0).setHP(720);
         enemyList.get(0).attackTimer = 2700;
+        addItem(new Items(playerList.get(0).position.x - 100,playerList.get(0).position.y, 100, .1, 0, ICounter, 3));
+        addItem(new Items(playerList.get(0).position.x - 50,playerList.get(0).position.y, 100, .1, 2, ICounter, 3));
+        addItem(new Items(playerList.get(0).position.x,playerList.get(0).position.y, 100, .1, 0, ICounter, 3));
+        addItem(new Items(playerList.get(0).position.x + 50,playerList.get(0).position.y, 100, .1, 2, ICounter, 3));
+        addItem(new Items(playerList.get(0).position.x + 100,playerList.get(0).position.y, 100, .1, 0, ICounter, 3));
       }
       if (enemyList.get(0).attacksLeft == 0){
         enemyList.remove(0);

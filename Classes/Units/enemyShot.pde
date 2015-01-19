@@ -84,7 +84,7 @@ class enemyShot extends Bullet{
          else{
            other.power = other.power/2;
          }
-         other.invulnTime = 45000;
+         other.invulnTime = 24000;
          other.position.x = width/4;
          other.position.y = 2*height/3;
        }

@@ -83,7 +83,7 @@ class Player extends Unit{
         else{
           setPower(power/2);
         }
-        invulnTime = 9000;
+        invulnTime = 24000;
         position.x = width/4;
         position.y = 2*height/3;
         if (HP <= 0){
