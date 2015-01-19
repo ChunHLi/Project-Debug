@@ -3,8 +3,23 @@ Project-Debug
 
 APCS Final Project Term 1
 
-Touhou-esque top-down shooter. Tentative title. 3 stages with survival mode planned; patterns will generally be 
-static/pseudo-static.
+Touhou-esque top-down shooter. 
+
+Welcome to the Touhou demo made in Processing.
+This Demo includes 5 waves of enemies and a boss fight at the end.
+Play while listening to 6 different possible songs.
+Sound effects are implemented to increase enjoyment.
+
+You will die instantly if damaged but you start off with 3 lives.
+
+Use arrow keys to move.
+The 'Z' key causes your hitbox to be visible and you move slower in order to avoid bullets with caution.
+The 'X' key is your shoot button and your fire rate is dependant on your power. You can raise your power by getting items and increasing your score.
+The 'C' key is your bomb key. The bomb will clear the screen of all enemy bullets and cause heavy damage to enemies. You only have 3 bombs so use them wisely.
+
+
+Change-Log
+==========
 
 12/24/14-Shawn Li- Created repository.
 
@@ -67,3 +82,13 @@ static/pseudo-static.
 1/17/15-Oscar Ngan/Shawn Li-
     -(Oscar) Created Boss constructors, working on sprites
     -(Shawn) Created display bullets, created attack pattern 1 for stage 1 boss, added other methods but haven't coded them yet.
+
+1/18/15-Shawn Li-
+    -Stage has been made!
+    -Enemy Waves completed!
+    -Boss stage completed!
+
+1/19/15-SHawn Li-
+    -Beautification has been done!
+    -Audio has been added!
+    -AutoClose on win and defeat has been implemented.
