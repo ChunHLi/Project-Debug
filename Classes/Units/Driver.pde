@@ -20,6 +20,7 @@ boolean wave3start = false;
 boolean wave4start = false;
 boolean wave5start = false;
 boolean bossStart = false;
+boolean bossBattle = false;
 int waveCounter = 0;
 float Type1Angle = 0;
 
@@ -114,12 +115,16 @@ void draw(){
     wave5start = false;
   }
   if (enemyList.size() == 0 && waveCounter == 4){
-    //bossStart = true;
-    //counter += 1;
+    bossStart = true;
+    waveCounter += 1;
   }
   if (bossStart == true){
-    //addEnemy();
-    //bossStart = false;
+    addEnemy(new Boss1());
+    bossStart = false;
+    bossBattle = true;
+  }
+  if (bossBattle == true){
+    boss1Attack();
   }
 }
   
