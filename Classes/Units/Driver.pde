@@ -52,7 +52,7 @@ void setup(){
   //enemyList.get(0).move();
   addItem(new Items(width/4,height/3,20,.1,1,0,3));
   a = loadImage("../../Background/Background4.jpg");
-  MusicNumber = int(random(6));
+  MusicNumber = int(random(7));
   minim = new Minim(this);
   //Would have definitely made this section into an ArrayList however certain files were louder than others so I was forced to do this.
   if (MusicNumber == 0){
@@ -72,6 +72,9 @@ void setup(){
   }
   if (MusicNumber == 5){
     backgroundMusic = minim.loadFile("../../Sounds/trinitySevenOP.mp3", 2048);
+  }
+  if (MusicNumber == 6){
+    backgroundMusic = minim.loadFile("../../Sounds/touhou1.mp3", 2048);
   }
   if (MusicNumber == 2 || MusicNumber == 3){
     //backgroundMusic.setGain(0);
