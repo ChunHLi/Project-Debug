@@ -3,7 +3,7 @@ class enemyShot extends Bullet{
   float vel;
   int display;
   int rotateCounter;
-  float acceleration = .2;
+  float acceleration = .01;
   float storedVelx;
   float storedVely;
   

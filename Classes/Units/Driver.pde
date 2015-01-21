@@ -34,7 +34,7 @@ int waveCounter = -1;
 int introDelay = 240;
 float Type1Angle = 0;
 int MusicNumber;
-int soundEffectCounter = 480;
+int soundEffectCounter = 360;
 int waveDelay = 240;
 int winloseDelay = 120;
 int autoCloseDelay = 120;
@@ -106,20 +106,6 @@ void draw(){
     InterfaceUpdateTimer = 0;
   }
   loopBackground();
-  playerMove();
-  enemyMove();
-  itemMove();
-  if (itemList.size() > 0){
-    itemList.get(0).drop();
-  }
-  playerBullets();
-  enemyAttack();
-  checkPlayerEnemyCollision();
-  if (playerList.size() > 0){
-    if (eShotList.size() == 0){
-      playerList.get(0).invulnTime = 0;
-    }
-  }
   if (introDelay > 0){
     introDelay -= 1;  
   }
@@ -153,8 +139,8 @@ void draw(){
   }
   if (wave2start == true){
     background(255);
-    addEnemy(new Enemy(100, 20, 1, 0, height/3, 1.5, 0, ECounter,1,0));
-    addEnemy(new Enemy(100, 20, 1, width/2 - 10, height/3, 1.5, 0, ECounter,1,0));
+    addEnemy(new Enemy(150, 20, 1, 0, height/3, 1.5, 0, ECounter,1,0));
+    addEnemy(new Enemy(150, 20, 1, width/2 - 10, height/3, 1.5, 0, ECounter,1,0));
     background(255);
     wave2start = false;
   }
@@ -197,7 +183,7 @@ void draw(){
   }
   if (wave4start == true){
     background(255);
-    addEnemy(new Enemy(1000,20,0, width/4, height/12, 0, 1.5, ECounter,3,4));
+    addEnemy(new Enemy(1000,20,0, width/4, height/12, 0, 1.5, ECounter,3,1));
     background(255);
     wave4start = false;
   }
@@ -279,6 +265,20 @@ void draw(){
     else{
       winloseDelay -= 1;
     }  
+  }
+  playerMove();
+  enemyMove();
+  itemMove();
+  if (itemList.size() > 0){
+    itemList.get(0).drop();
+  }
+  playerBullets();
+  enemyAttack();
+  checkPlayerEnemyCollision();
+  if (playerList.size() > 0){
+    if (eShotList.size() == 0){
+      playerList.get(0).invulnTime = 0;
+    }
   }
 }
   
@@ -610,7 +610,14 @@ void displayItem(){
          if (enemyList.get(counter).doesItDropItem == 4){
            addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,50,.1,3,ICounter,3));
          }
-         removeEnemy(enemyList.get(counter).Ecounter);
+         if (enemyList.get(counter) instanceof Boss1){
+           if (enemyList.get(counter).attacksLeft == 0){
+             removeEnemy(enemyList.get(counter).Ecounter);
+           }
+         }
+         else{
+           removeEnemy(enemyList.get(counter).Ecounter);
+         }
          break;
        }
      }
