@@ -37,7 +37,7 @@ int MusicNumber;
 int soundEffectCounter = 360;
 int waveDelay = 240;
 int winloseDelay = 120;
-int autoCloseDelay = 120;
+int autoCloseDelay = 360;
 
 
 
@@ -54,6 +54,7 @@ void setup(){
   a = loadImage("../../Background/Background4.jpg");
   MusicNumber = int(random(6));
   minim = new Minim(this);
+  //Would have definitely made this section into an ArrayList however certain files were louder than others so I was forced to do this.
   if (MusicNumber == 0){
     backgroundMusic = minim.loadFile("../../Sounds/airman.mp3", 2048);
   }
@@ -347,10 +348,6 @@ void Interface(){
     fill(255);
     text("Bombs: " + playerList.get(0).Bombs, width/2 + 10, 116);
     fill(255);
-    text("Life Pieces: " + playerList.get(0).LCount, width/2 + 10, 144);
-    fill(255);
-    text("Bomb Pieces: " + playerList.get(0).BCount, width/2 + 10, 172);
-    fill(255);
   }
   else{
     text("Score: " + pseudoScore, width/2 + 10, 30);
@@ -359,10 +356,6 @@ void Interface(){
     text("Power: " + 0, width/2 + 10, 88);
     fill(255);
     text("Bombs: " + 0, width/2 + 10, 116);
-    fill(255);
-    text("Life Pieces: " + 0, width/2 + 10, 144);
-    fill(255);
-    text("Bomb Pieces: " + 0, width/2 + 10, 172);
     fill(255);
   }
 }
@@ -611,8 +604,7 @@ void displayItem(){
            addItem(new Items(enemyList.get(counter).position.x,enemyList.get(counter).position.y,50,.1,3,ICounter,3));
          }
          if (enemyList.get(counter) instanceof Boss1){
-           if (enemyList.get(counter).attacksLeft == 0){
-             removeEnemy(enemyList.get(counter).Ecounter);
+           if (enemyList.get(0).attacksLeft == 0){
            }
          }
          else{
@@ -632,6 +624,10 @@ void checkPlayerEnemyCollision(){
     while (counter2 < enemyList.size()){
       playerList.get(counter).checkBoundaryCollision(enemyList.get(counter2));
       counter2 += 1;
+      if (playerList.get(0).HP <= 0){
+        pseudoScore = playerList.get(0).Score;
+        playerList.remove(0);
+      }  
     }
     counter += 1;
   }
@@ -644,7 +640,8 @@ void checkBulletPlayerCollision(){
      while (counter2 < eShotList.size()){
        eShotList.get(counter2).checkBoundaryCollision(playerList.get(counter),eShotList);
        counter2 += 1;
-       if (playerList.get(counter).HP <= 0){
+       if (playerList.get(0).HP <= 0){
+         pseudoScore = playerList.get(0).Score;
          playerList.remove(0);
          break;
        }
@@ -740,7 +737,8 @@ void loopBackground(){
 }
 
 void boss1Attack(){
-  if (enemyList.get(0).attacksLeft == 3){
+  if (enemyList.size() > 0){
+    if (enemyList.get(0).attacksLeft == 3){
       boss1Attack1();
     }
     if (enemyList.get(0).attacksLeft == 2){
@@ -751,6 +749,7 @@ void boss1Attack(){
     }
     nextPart();
   }
+}
   
 void nextPart(){
     if ((enemyList.get(0).HP <= 11) || (enemyList.get(0).attackTimer <= 0)){
@@ -768,7 +767,7 @@ void nextPart(){
         background(255);
       }
       if (enemyList.get(0).attacksLeft == 0){
-        enemyList.remove(0);
+        removeEnemy(0);
       }
     }
     else{

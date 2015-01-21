@@ -7,7 +7,7 @@ class Player extends Unit{
   
   Player(){
     setLives(3);
-    setBombs(3);
+    setBombs(99);
     setLCount(0);
     setBCount(0);
     setScore(0);
@@ -86,9 +86,6 @@ class Player extends Unit{
         invulnTime = 24000;
         position.x = width/4;
         position.y = 2*height/3;
-        if (HP <= 0){
-          playerList.remove(0);
-        }
       }
     }
   }
